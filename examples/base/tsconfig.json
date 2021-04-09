@@ -1,0 +1,26 @@
+{
+	"compilerOptions": {
+		/* Basic Options */
+		"target": "ES2015",
+		"module": "ES2015",
+		"jsx": "react",
+		"outDir": "dist",
+		"removeComments": true,
+
+		/* Strict Type-Checking Options */
+		"strict": true,
+
+		/* Additional Checks */
+		"noUnusedParameters": true,
+		"noFallthroughCasesInSwitch": true,
+
+		/* Module Resolution Options */
+		"moduleResolution": "node",
+		"allowSyntheticDefaultImports": true,
+		"esModuleInterop": true,
+
+		/* Advanced Options */
+		"forceConsistentCasingInFileNames": true
+	},
+	"include": ["src/**/*"]
+}
