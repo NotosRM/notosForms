@@ -1,0 +1,19 @@
+.component {
+	/* display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-start;
+	align-content: flex-start; */
+}
+.label {
+	display: inline-block;
+}
+.input {
+	display: block;
+}
+.control {
+}
+.description {
+}
+.error {
+}
