@@ -1,0 +1,14 @@
+.wrap {
+	@apply grid grid-cols-3 gap-4;
+}
+.label {
+}
+.component {
+	@apply col-span-2;
+}
+.control {
+}
+.description {
+}
+.error {
+}

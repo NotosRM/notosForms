@@ -1,0 +1,11 @@
+.wrap {
+	@apply border-b-2;
+}
+
+.label {
+	@apply text-lg;
+}
+
+.content {
+	@apply p-2;
+}

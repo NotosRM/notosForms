@@ -11,7 +11,7 @@ module.exports = {
 		path: path.resolve(__dirname, "dist")
 	},
 	resolve: {
-		extensions: [".ts", ".tsx", ".js", ".jsx", ".json"]
+		extensions: [".ts", ".tsx", ".js", ".jsx", ".json", ".css"]
 	},
 	module: {
 		rules: [
@@ -27,7 +27,9 @@ module.exports = {
 					{
 						loader: "css-loader",
 						options: {
-							modules: true
+							modules: {
+								localIdentName: "[path][name]__[local]"
+							}
 						}
 					},
 					"postcss-loader"
@@ -38,7 +40,7 @@ module.exports = {
 	devServer: {
 		contentBase: path.join(__dirname, "dist"),
 		compress: true,
-		port: 9000
+		port: 9001
 	},
 	plugins: [
 		new HtmlWebpackPlugin({

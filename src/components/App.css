@@ -1,7 +1,9 @@
 body {
-	@apply bg-gray-100;
+	@apply bg-gray-100 font-sans;
 }
 
 .main {
-	@apply bg-red-500 p-6;
+	@apply p-4 max-w-xl m-auto;
+
+	@apply bg-white shadow-sm;
 }

@@ -1,0 +1,17 @@
+.wrap {
+}
+
+.header {
+	@apply text-xl font-semibold;
+	@apply text-black;
+}
+
+.description {
+}
+
+.content {
+	@apply text-current;
+}
+
+.actions {
+}
