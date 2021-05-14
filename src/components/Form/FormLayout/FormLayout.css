@@ -1,9 +1,7 @@
-.wrap {
-}
-
 .header {
 	@apply text-xl font-semibold;
 	@apply text-black;
+	@apply p-2;
 }
 
 .description {

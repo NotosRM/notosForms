@@ -1,11 +1,14 @@
 .wrap {
-	@apply border-b-2;
+	@apply border-solid border-0 border-b-2 border-gray-300;
+	@apply mb-2;
+	@apply bg-gray-100;
 }
 
 .label {
 	@apply text-lg;
+	@apply px-2 pt-2;
 }
 
 .content {
-	@apply p-2;
+	@apply p-2 px-4;
 }
