@@ -5,7 +5,6 @@
 .wrapRowReverse {
 	@apply grid grid-cols-2 gap-x-4;
 	@apply px-4 py-2;
-	grid-auto-flow: dense;
 }
 .wrapRowReverse .label {
 	order: 1;
@@ -20,14 +19,18 @@
 	@apply col-span-1;
 }
 .control {
+	@apply border-solid border-1 border-gray-400;
 }
 .controlError,
 .controlError:focus {
 	@apply border-solid border-red-500;
+	@apply outline-0;
 }
 .control:hover,
 .control:focus {
-	@apply border-solid border-blue-400;
+	@apply border-solid border-blue-400 border-1;
+	@apply shadow-mdt-blue;
+	@apply outline-0;
 }
 
 .description {

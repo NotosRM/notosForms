@@ -61,7 +61,7 @@ const Select: React.FC<IFieldProps> = (props) => {
 	return (
 		<select className={className}>
 			{options.map((element: any) => (
-				<option key={element} value={element}>
+				<option key={props.key || element} value={element}>
 					{element}
 				</option>
 			))}
@@ -80,6 +80,7 @@ const Radio: React.FC<IFieldProps> = (props) => {
 };
 
 export const FieldLayout: React.FC<IFieldProps> = (props) => {
+	let { rest } = props;
 	const wrappperClassName = props.labelPosition
 		? props.labelPosition == "top"
 			? styles.wrapColumn
@@ -97,6 +98,7 @@ export const FieldLayout: React.FC<IFieldProps> = (props) => {
 	const Control = Controls[props.control || "input"];
 	return (
 		<Field
+			{...rest}
 			name={props.code}
 			render={({ input, meta }) => (
 				<div className={wrappperClassName}>

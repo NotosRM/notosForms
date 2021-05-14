@@ -25,7 +25,7 @@ export const App = () => {
 					<FieldLayout code="gender" name="" label="Gender" control="select" options={genders} />
 				</FieldGroup>
 				<FieldGroup label="Contact information">
-					<FieldLayout code="phone" name="" label="Phone" />
+					<FieldLayout code="phone" name="" label="Phone" labelPosition="top" />
 					<FieldLayout code="email" name="" label="Email" />
 				</FieldGroup>
 				<FieldLayout code="testField" name="" label="testLabel" />
