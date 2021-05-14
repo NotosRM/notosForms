@@ -15,27 +15,30 @@ export const App = () => {
 		}
 		return errors;
 	};
-	const genders = {
-		m: "male",
-		w: "female"
-	};
+	const genders = ["male", "female"];
 	return (
 		<div className={style.main}>
 			<FormLayout title="Customer registration" validate={validate} onSubmit={(...args) => console.log(args)}>
 				<FieldGroup label="Personal information">
-					<FieldLayout code="firstName" label="First name" description="Your full name" />
-					<FieldLayout code="lastName" label="Last name" required={true} />
-					<FieldLayout code="gender" label="Gender" control="Select" options={genders} />
+					<FieldLayout code="firstName" name="" label="First name" description="Your full name" />
+					<FieldLayout code="lastName" name="" label="Last name" required={true} />
+					<FieldLayout code="gender" name="" label="Gender" control="select" options={genders} />
 				</FieldGroup>
 				<FieldGroup label="Contact information">
-					<FieldLayout code="phone" label="Phone" />
-					<FieldLayout code="email" label="Email" control="select" />
+					<FieldLayout code="phone" name="" label="Phone" />
+					<FieldLayout code="email" name="" label="Email" />
 				</FieldGroup>
-				<FieldLayout code="testField" label="testLabel" control="textArea" />
+				<FieldLayout code="testField" name="" label="testLabel" />
 				<FieldGroup label="Interests">
-					<FieldLayout code="favTVShow" label="Favorite TV Show" labelPosition="right" />
+					<FieldLayout
+						code="favTVShow"
+						name=""
+						label="Favorite TV Show"
+						labelPosition="right"
+						control="textarea"
+					/>
 				</FieldGroup>
-				<FieldLayout code="confirm" label="Subscribe to newsletter" />
+				<FieldLayout code="confirm" name="" label="Subscribe to newsletter" control="radio" />
 			</FormLayout>
 		</div>
 	);
