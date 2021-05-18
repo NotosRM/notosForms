@@ -11,7 +11,7 @@ export const App = () => {
 			errors.firstName = "validation failed";
 		}
 		if (!values.testField) {
-			errors.testField = "this field can't be empty";
+			errors.testField = "this field is empty";
 		}
 		return errors;
 	};
@@ -22,23 +22,16 @@ export const App = () => {
 				<FieldGroup label="Personal information">
 					<FieldLayout code="firstName" name="" label="First name" description="Your full name" />
 					<FieldLayout code="lastName" name="" label="Last name" required={true} />
-					<FieldLayout code="gender" name="" label="Gender" control="select" options={genders} />
+					<FieldLayout code="gender" name="" label="Gender" control="select" elements={genders} />
 				</FieldGroup>
 				<FieldGroup label="Contact information">
 					<FieldLayout code="phone" name="" label="Phone" labelPosition="top" />
-					<FieldLayout code="email" name="" label="Email" />
+					<FieldLayout code="email" name="" label="Email" type="email" />
 				</FieldGroup>
-				<FieldLayout code="testField" name="" label="testLabel" />
 				<FieldGroup label="Interests">
-					<FieldLayout
-						code="favTVShow"
-						name=""
-						label="Favorite TV Show"
-						labelPosition="right"
-						control="textarea"
-					/>
+					<FieldLayout code="favTVShow" name="" label="Favorite TV Show" control="textarea" />
 				</FieldGroup>
-				<FieldLayout code="confirm" name="" label="Subscribe to newsletter" control="radio" />
+				<FieldLayout code="confirm" name="" label="Subscribe to newsletter" control="checkbox" />
 			</FormLayout>
 		</div>
 	);

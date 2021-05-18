@@ -19,7 +19,9 @@ export const FormLayout: React.FC<FormLayoutProps> = (props) => {
 					<div className={styles.header}>{title}</div>
 					<div className={styles.description}>{description}</div>
 					<div className={styles.content}>{children}</div>
-					<button type="submit">Submit</button>
+					<button className={styles.btn} type="submit">
+						Submit
+					</button>
 				</form>
 			)}
 		></Form>
