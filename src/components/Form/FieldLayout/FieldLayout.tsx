@@ -1,23 +1,10 @@
 import React from "react";
 import { Field, FieldProps, FieldRenderProps } from "react-final-form";
-import Controls, { ControlProps } from "./ControlsLayout/ControlsManager";
+import Controls, { ControlsProps } from "./ControlsLayout/ControlsManager";
 import styles from "./FieldLayout.css";
 
-interface IFieldProps<
-	FieldValue = any,
-	RP extends FieldRenderProps<FieldValue, T> = FieldRenderProps<FieldValue, HTMLElement>,
-	T extends HTMLElement = HTMLElement
-> extends FieldProps<FieldValue, RP, T> {
-	code: string;
-	label?: string;
-	labelPosition?: "top" | "left" | "right";
-	description?: string;
-	error?: string;
-	required?: boolean;
-}
-
 export const FieldLayout: React.FC<FieldLayoutProps> = (props) => {
-	let { rest } = props;
+	let { ...rest } = props;
 	// const wrappperClassName = props.labelPosition
 	// 	? props.labelPosition == "top"
 	// 		? styles.wrapColumn
@@ -31,7 +18,11 @@ export const FieldLayout: React.FC<FieldLayoutProps> = (props) => {
 		<Field
 			{...rest}
 			name={props.code}
-			type={controlType == "checkbox" || controlType == "radio" ? controlType : props.type || ""}
+			type={
+				controlType == "checkbox" || controlType == "radio"
+					? controlType
+					: (props.fieldProps && props.fieldProps.type) || ""
+			}
 			render={({ input, meta }) => (
 				<div className={styles.wrapColumn}>
 					{controlType == "checkbox" || controlType == "radio" ? null : (
@@ -50,7 +41,7 @@ export const FieldLayout: React.FC<FieldLayoutProps> = (props) => {
 									styles[controlType]
 								}
 								input={input}
-								{...props}
+								cProps={props}
 								required={props.required}
 							/>
 						</div>
@@ -67,6 +58,17 @@ export const FieldLayout: React.FC<FieldLayoutProps> = (props) => {
 	);
 };
 
-export type FieldLayoutProps = IFieldProps & ControlProps;
-//TODO: порядок @apply в стилях
-//TODO: Понакручивать стили
+export interface IFieldProps<
+	FieldValue = any,
+	RP extends FieldRenderProps<FieldValue, T> = FieldRenderProps<FieldValue, HTMLElement>,
+	T extends HTMLElement = HTMLElement
+> {
+	code: string;
+	label?: string;
+	labelPosition?: "top" | "left" | "right";
+	description?: string;
+	error?: string;
+	required?: boolean;
+	fieldProps?: FieldProps<FieldValue, RP, T>;
+}
+export type FieldLayoutProps = IFieldProps & ControlsProps;

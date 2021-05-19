@@ -1,8 +1,9 @@
 import React from "react";
 import { FieldLayoutProps } from "../FieldLayout";
+import { IControl } from "./ControlsManager";
 
-const Input: React.FC<FieldLayoutProps> = (props) => {
-	let { required, className, input } = props;
+const Input: IControl<InputProps> = (props) => {
+	let { required, input, className } = props;
 	return <input {...input} className={className} required={required} />;
 };
 export interface InputProps {

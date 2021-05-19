@@ -3,14 +3,10 @@ import Radio, { RadioProps } from "./Radio";
 import Checkbox, { CheckboxProps } from "./Checkbox";
 import Select, { SelectProps } from "./Select";
 import Textarea, { TextareaProps } from "./Textarea";
+import { FieldLayoutProps, IFieldProps } from "../FieldLayout";
+import { FieldInputProps } from "react-final-form";
+export type ControlsProps = InputProps | TextareaProps | SelectProps | CheckboxProps | RadioProps;
 
-export type ControlProps = InputProps | TextareaProps | SelectProps | CheckboxProps | RadioProps;
-
-interface IControlProps {
-	control?: string;
-	options?: any;
-	[otherProp: string]: any;
-}
 const Controls: { [control: string]: any } = {
 	input: Input,
 	textarea: Textarea,
@@ -18,4 +14,9 @@ const Controls: { [control: string]: any } = {
 	checkbox: Checkbox,
 	radio: Radio
 };
+interface IControlProps<FieldValue = any, T extends HTMLElement = HTMLElement> {
+	className: string;
+	input: FieldInputProps<FieldValue, T>;
+}
+export type IControl<T extends ControlsProps = ControlsProps> = React.FC<FieldLayoutProps & IControlProps & T>;
 export default Controls;

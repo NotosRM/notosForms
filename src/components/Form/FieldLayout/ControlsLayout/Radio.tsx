@@ -1,9 +1,10 @@
 import React from "react";
 import { FieldLayoutProps } from "../FieldLayout";
 import styles from "../FieldLayout.css";
+import { IControl } from "./ControlsManager";
 
-const Radio: React.FC<FieldLayoutProps> = (props) => {
-	let { required, className, input, options, label, code } = props;
+const Radio: IControl<RadioProps> = (props) => {
+	let { code, label, input, className, ...rest } = props;
 	return (
 		<div className={className}>
 			<input {...input} type="radio" className={styles.checkInput} id={code} required />
