@@ -1,7 +1,8 @@
 import React from "react";
 import { FieldLayoutProps } from "../FieldLayout";
+import { IControl } from "./ControlsManager";
 
-const Textarea: React.FC<FieldLayoutProps> = (props) => {
+const Textarea: IControl<TextareaProps> = (props) => {
 	let { required, className, input, options } = props;
 	return <textarea {...input} className={className}></textarea>;
 };

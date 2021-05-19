@@ -1,13 +1,13 @@
 import React from "react";
 import { FieldLayoutProps } from "../FieldLayout";
+import { IControl } from "./ControlsManager";
 
-const Select: React.FC<FieldLayoutProps> = (props) => {
-	let { required, className, input, options, elements } = props;
-
+const Select: IControl<SelectProps> = (props) => {
+	let { code, label, input, className, elements, ...rest } = props;
 	return (
 		<select {...input} className={className}>
 			{elements?.map((element: any) => (
-				<option key={props.key || element} value={element}>
+				<option key={element} value={element}>
 					{element}
 				</option>
 			))}
