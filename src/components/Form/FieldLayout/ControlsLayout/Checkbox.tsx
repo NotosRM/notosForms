@@ -6,7 +6,7 @@ const Checkbox: React.FC<FieldLayoutProps> = (props) => {
 	let { required, className, input, options, code, label } = props;
 	return (
 		<div className={className}>
-			<input {...input} type="checkbox" className={styles.checkInput} name={code} id="" />
+			<input {...input} type="checkbox" className={styles.checkInput} id={code} />
 			{label && (
 				<label htmlFor={code} className={styles.checkLabel}>
 					{label}
@@ -15,7 +15,6 @@ const Checkbox: React.FC<FieldLayoutProps> = (props) => {
 		</div>
 	);
 };
-// Вынести label в fieldLayout
 export interface CheckboxProps {
 	control: "checkbox";
 	options?: CheckboxOptions;

@@ -1,6 +1,6 @@
 .wrap {
-	@apply border-solid border-0 border-b-2 border-gray-300;
-	@apply mb-2;
+	/* @apply border-solid border-0 border-b-2 border-gray-300; */
+	@apply mt-4;
 	@apply bg-gray-100;
 	break-inside: avoid;
 	@apply dark:bg-gray-700 border-gray-900;
@@ -8,9 +8,9 @@
 
 .label {
 	@apply text-lg;
-	@apply px-2 pt-2;
+	@apply px-2 pt-1;
 }
 
 .content {
-	@apply py-2;
+	@apply pb-4 pt-1;
 }
