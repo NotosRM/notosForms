@@ -31,7 +31,7 @@ export const App = () => {
 				<FieldGroup label="Interests">
 					<FieldLayout code="favTVShow" name="" label="Favorite TV Show" control="textarea" />
 				</FieldGroup>
-				<FieldLayout code="confirm" name="" label="Subscribe to newsletter" control="checkbox" />
+				<FieldLayout code="confirm" name="" label="Subscribe to newsletter" control="radio" />
 			</FormLayout>
 		</div>
 	);

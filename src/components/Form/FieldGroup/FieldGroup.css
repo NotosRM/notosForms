@@ -3,6 +3,7 @@
 	@apply mb-2;
 	@apply bg-gray-100;
 	break-inside: avoid;
+	@apply dark:bg-gray-700 border-gray-900;
 }
 
 .label {
