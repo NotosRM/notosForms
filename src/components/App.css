@@ -6,4 +6,5 @@ body {
 	@apply p-4 max-w-xl m-auto;
 
 	@apply bg-white shadow-sm;
+	@apply dark:bg-gray-800;
 }

@@ -15,7 +15,7 @@ export const FormLayout: React.FC<FormLayoutProps> = (props) => {
 		<Form
 			{...rest}
 			render={({ handleSubmit }) => (
-				<form onSubmit={handleSubmit}>
+				<form className={styles.wrap} onSubmit={handleSubmit}>
 					<div className={styles.header}>{title}</div>
 					<div className={styles.description}>{description}</div>
 					<div className={styles.content}>{children}</div>

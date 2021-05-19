@@ -6,7 +6,7 @@ const Radio: React.FC<FieldLayoutProps> = (props) => {
 	let { required, className, input, options, label, code } = props;
 	return (
 		<div className={className}>
-			<input {...input} type="radio" className={styles.checkInput} name={code} id="" />
+			<input {...input} type="radio" className={styles.checkInput} id={code} required />
 			{label && (
 				<label htmlFor={code} className={styles.checkLabel}>
 					{label}

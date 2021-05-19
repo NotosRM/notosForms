@@ -31,6 +31,7 @@ export const FieldLayout: React.FC<FieldLayoutProps> = (props) => {
 		<Field
 			{...rest}
 			name={props.code}
+			type={controlType == "checkbox" || controlType == "radio" ? controlType : props.type || ""}
 			render={({ input, meta }) => (
 				<div className={styles.wrapColumn}>
 					{controlType == "checkbox" || controlType == "radio" ? null : (
