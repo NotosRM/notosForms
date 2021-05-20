@@ -28,7 +28,10 @@ module.exports = {
 						loader: "css-loader",
 						options: {
 							modules: {
-								localIdentName: "[path][name]__[local]"
+								localIdentName: "[path][name]__[local]",
+								getLocalIdent: (_context, _localIdentName, localName) => {
+									if (localName === "dark") return "dark";
+								}
 							}
 						}
 					},

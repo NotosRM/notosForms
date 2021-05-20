@@ -1,4 +1,5 @@
 import React from "react";
+import { FormSpy } from "react-final-form";
 import style from "./App.css";
 import { FieldGroup } from "./Form/FieldGroup/FieldGroup";
 import { FieldLayout } from "./Form/FieldLayout/FieldLayout";
@@ -35,6 +36,13 @@ export const App = () => {
 				</FieldGroup>
 				<FieldLayout code="confirm" label="Subscribe to newsletter" control="radio" />
 				<FieldLayout code="darkMode" label="Dark Mode" control="checkbox" />
+				<FormSpy
+					subscription={{ values: true }}
+					onChange={(props) => {
+						if (props.values.darkMode != null)
+							document.documentElement.classList.toggle("dark", props.values.darkMode);
+					}}
+				/>
 			</FormLayout>
 		</div>
 	);
