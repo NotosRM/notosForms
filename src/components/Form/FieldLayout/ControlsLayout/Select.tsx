@@ -3,9 +3,10 @@ import { FieldLayoutProps } from "../FieldLayout";
 import { IControl } from "./ControlsManager";
 
 const Select: IControl<SelectProps> = (props) => {
-	let { code, label, input, className, elements, ...rest } = props;
+	let { code, label, input, className, elements, options, ...rest } = props;
 	return (
 		<select {...input} className={className}>
+			{options?.hasNullable ? <option key={null}></option> : null}
 			{elements?.map((element: any) => (
 				<option key={element} value={element}>
 					{element}
@@ -19,8 +20,9 @@ export interface SelectProps {
 	control: "select";
 	elements?: any;
 	options?: SelectOptions;
-	placeholder?: string;
 }
-interface SelectOptions {}
+interface SelectOptions {
+	hasNullable?: boolean;
+}
 
 export default Select;

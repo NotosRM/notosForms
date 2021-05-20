@@ -41,7 +41,7 @@ export const FieldLayout: React.FC<FieldLayoutProps> = (props) => {
 									styles[controlType]
 								}
 								input={input}
-								cProps={props}
+								{...props}
 								required={props.required}
 							/>
 						</div>

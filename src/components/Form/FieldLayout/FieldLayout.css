@@ -90,7 +90,8 @@ wrapper	{
 	@apply bg-no-repeat bg-white bg-center bg-contain;
 	margin-left: -8px;
 }
-.checkInput:hover {
+.checkInput:hover,
+.checkInput:focus {
 	@apply border-solid border-blue-400 border-1;
 	@apply shadow-mdt-blue;
 	@apply outline-0;

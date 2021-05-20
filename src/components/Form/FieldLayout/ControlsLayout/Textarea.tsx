@@ -4,15 +4,16 @@ import { IControl } from "./ControlsManager";
 
 const Textarea: IControl<TextareaProps> = (props) => {
 	let { required, className, input, options } = props;
-	return <textarea {...input} className={className}></textarea>;
+	return (
+		<textarea {...input} className={className} placeholder={options?.placeholder} required={required}></textarea>
+	);
 };
 
 export interface TextareaProps {
 	control: "textarea";
 	options?: TextareasOptions;
-	placeholder?: string;
 }
 interface TextareasOptions {
-	resize?: "both" | "horizontal" | "vertical" | "none";
+	placeholder: string;
 }
 export default Textarea;

@@ -5,9 +5,15 @@ import { IControl } from "./ControlsManager";
 
 const Radio: IControl<RadioProps> = (props) => {
 	let { code, label, input, className, ...rest } = props;
+	let { checked, ...inputRP } = input;
 	return (
 		<div className={className}>
-			<input {...input} type="radio" className={styles.checkInput} id={code} required />
+			<input
+				{...inputRP}
+				// checked={input.checked}
+				className={styles.checkInput}
+				id={code}
+			/>
 			{label && (
 				<label htmlFor={code} className={styles.checkLabel}>
 					{label}

@@ -18,7 +18,12 @@ export const App = () => {
 			<FormLayout title="Customer registration" validate={validate} onSubmit={(...args) => console.log(args)}>
 				<FieldGroup label="Personal information">
 					<FieldLayout code="firstName" label="First name" description="Your full name" />
-					<FieldLayout code="lastName" label="Last name" required={true} />
+					<FieldLayout
+						code="lastName"
+						label="Last name"
+						required={true}
+						options={{ placeholder: "u last name" }}
+					/>
 					<FieldLayout code="gender" label="Gender" control="select" elements={genders} />
 				</FieldGroup>
 				<FieldGroup label="Contact information">
@@ -28,7 +33,7 @@ export const App = () => {
 				<FieldGroup label="Interests">
 					<FieldLayout code="favTVShow" label="Favorite TV Show" control="textarea" />
 				</FieldGroup>
-				<FieldLayout code="confirm" label="Subscribe to newsletter" control="checkbox" />
+				<FieldLayout code="confirm" label="Subscribe to newsletter" control="radio" />
 				<FieldLayout code="darkMode" label="Dark Mode" control="checkbox" />
 			</FormLayout>
 		</div>

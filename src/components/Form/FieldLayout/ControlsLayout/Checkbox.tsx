@@ -23,6 +23,6 @@ export interface CheckboxProps {
 }
 
 interface CheckboxOptions {
-	isTthreeState?: boolean;
+	inderterminate?: boolean;
 }
 export default Checkbox;

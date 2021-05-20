@@ -3,8 +3,8 @@ import { FieldLayoutProps } from "../FieldLayout";
 import { IControl } from "./ControlsManager";
 
 const Input: IControl<InputProps> = (props) => {
-	let { required, input, className } = props;
-	return <input {...input} className={className} required={required} />;
+	let { input, className, required, options } = props;
+	return <input {...input} className={className} placeholder={options?.placeholder} required={required} />;
 };
 export interface InputProps {
 	control?: "input";
