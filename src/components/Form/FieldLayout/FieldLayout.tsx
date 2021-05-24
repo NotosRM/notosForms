@@ -4,7 +4,7 @@ import Controls, { ControlsProps } from "./ControlsLayout/ControlsManager";
 import styles from "./FieldLayout.css";
 
 export const FieldLayout: React.FC<FieldLayoutProps> = (props) => {
-	let { ...rest } = props;
+	let { fieldProps, ...rest } = props;
 	// const wrappperClassName = props.labelPosition
 	// 	? props.labelPosition == "top"
 	// 		? styles.wrapColumn
@@ -16,7 +16,7 @@ export const FieldLayout: React.FC<FieldLayoutProps> = (props) => {
 	const Control = Controls[controlType];
 	return (
 		<Field
-			{...rest}
+			{...fieldProps}
 			name={props.code}
 			type={
 				controlType == "checkbox" || controlType == "radio"
@@ -41,7 +41,7 @@ export const FieldLayout: React.FC<FieldLayoutProps> = (props) => {
 									styles[controlType]
 								}
 								input={input}
-								{...props}
+								{...rest}
 								required={props.required}
 							/>
 						</div>

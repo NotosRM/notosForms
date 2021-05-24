@@ -6,11 +6,19 @@
 	@apply dark:bg-gray-700 border-gray-900;
 }
 
-.label {
+.header {
 	@apply text-lg;
 	@apply px-2 pt-1;
 }
 
 .content {
 	@apply pb-4 pt-1;
+}
+.wrapper {
+	@apply appearance-none;
+	@apply bg-no-repeat bg-white bg-center bg-contain;
+}
+.wrapper input[type="checkbox"] {
+}
+.wrapper input:checked[type="checkbox"] {
 }

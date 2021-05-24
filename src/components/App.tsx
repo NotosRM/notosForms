@@ -13,7 +13,10 @@ export const App = () => {
 		}
 		return errors;
 	};
-	const genders = ["male", "female"];
+	const genders = [
+		{ value: "male", v: "male" },
+		{ value: "female", v: "female" }
+	];
 	return (
 		<div className={style.main}>
 			<FormLayout title="Customer registration" validate={validate} onSubmit={(...args) => console.log(args)}>
