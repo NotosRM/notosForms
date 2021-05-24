@@ -1,5 +1,4 @@
 import * as React from "react";
-import { FormSpy } from "react-final-form";
 import styles from "./FieldGroup.css";
 
 type GroupLayoutProps = {
@@ -11,20 +10,30 @@ type GroupLayoutProps = {
 
 export const FieldGroup: React.FC<GroupLayoutProps> = (props) => {
 	let { code, label, visible, wrapper, children } = props;
-	const content = (props: any) => (props.isWrapped ? null : <div className={styles.content}>{children}</div>);
-	let isWrapped: boolean = false;
-	let guid = () => {
-		const S4 = () => (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
-		return S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4();
+	const WrappableContent = () => {
+		const [isWrapped, setWrap] = React.useState(false);
+		const Empty: React.FC = () => <React.Fragment></React.Fragment>;
+		return (
+			<React.Fragment>
+				<span
+					className={styles.wrapper}
+					onClick={() => {
+						setWrap(!isWrapped);
+					}}
+				>
+					{isWrapped ? "+" : "-"}
+				</span>
+
+				{isWrapped ? null : <BaseContent />}
+			</React.Fragment>
+		);
 	};
-	let id = guid();
+	const BaseContent: React.FC = () => <div className={styles.content}>{children}</div>;
+
 	return visible || visible == void 0 ? (
 		<div className={styles.wrap}>
-			<div className={styles.header}>
-				{label}
-				{wrapper ? <input type="checkbox" id={id} /> : null}
-			</div>
-			<div className={styles.content}>{children}</div>
+			<div className={styles.header}>{label}</div>
+			{wrapper ? <WrappableContent /> : <BaseContent />}
 		</div>
 	) : null;
 };
