@@ -24,7 +24,7 @@ export const Charts = () => {
 					<FieldLayout code="title" label="Заголовок графика"></FieldLayout>
 				</FieldGroup>
 
-				<FieldGroup label="Настройки 2D графиков" wrapper={true}>
+				<FieldGroup label="Настройки 2D графиков" collapsible={true}>
 					<FieldLayout
 						code="chart-2d-type"
 						label="Тип графика"
@@ -37,13 +37,12 @@ export const Charts = () => {
 					></FieldLayout>
 					<FieldLayout code="is-segmented" label="Отображать сегметированно" control="checkbox"></FieldLayout>
 					{/* Для line и area*/}
-					<FieldLayout code="markers" label="Отображение маркеров" control="checkbox"></FieldLayout>
 				</FieldGroup>
-				<FieldGroup label="Настройки осей" visible={() => twoDimensionalGroupVisibilitiy}>
+				<FieldGroup label="Настройки осей" hSize="2xl">
 					{/* Ось ключей*/}
 					<FieldGroup label="Параметры оси ключей">
 						<FieldLayout
-							code="value-axis-gridline"
+							code="key-axis-gridline"
 							label="Отображение линий сетки"
 							control="checkbox"
 						></FieldLayout>

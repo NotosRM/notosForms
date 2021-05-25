@@ -1,24 +1,45 @@
 .wrap {
-	@apply mt-4;
+	@apply pt-3 pb-1;
 	@apply bg-gray-100;
 	break-inside: avoid;
 	@apply dark:bg-gray-700 border-gray-900;
-	@apply relative;
 	min-height: 28px;
 }
 
 .header {
+	@apply px-4 mb-3;
+	@apply flex;
+}
+.xs {
+	@apply text-xs;
+}
+.sm {
+	@apply text-sm;
+}
+.base {
+	@apply text-base;
+}
+.lg {
 	@apply text-lg;
-	@apply px-2 pt-1;
+}
+.xl {
+	@apply text-xl;
+}
+.xxl {
+	@apply text-2xl;
+}
+.parent {
 }
 
 .content {
-	@apply pb-4 pt-1;
 }
-.wrapper {
+.collapser {
 	@apply appearance-none;
-	@apply absolute right-2 top-1;
-	@apply text-6xl;
-	font-size: 20px !important;
 	@apply cursor-pointer;
+}
+.angleDown:before {
+	content: "\f103";
+}
+.angleRight:before {
+	content: "\f101";
 }

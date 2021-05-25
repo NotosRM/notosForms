@@ -1,9 +1,10 @@
 .header {
-	@apply text-xl font-semibold;
+	@apply text-2xl font-semibold;
 	@apply text-black dark:text-gray-100;
 	@apply p-2;
 }
 .wrap {
+	@apply text-base;
 }
 .description {
 }
@@ -12,9 +13,10 @@
 	@apply text-black dark:text-gray-100;
 	@apply pb-2;
 	column-width: 420px;
+	@apply font-normal;
 }
 .content * {
-	@apply text-base font-normal;
+	font-family: "Roboto", sans-serif;
 }
 
 .actions {
