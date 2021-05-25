@@ -5,13 +5,15 @@ import styles from "./FieldLayout.css";
 
 export const FieldLayout: React.FC<FieldLayoutProps> = (props) => {
 	let { fieldProps, ...rest } = props;
-	// const wrappperClassName = props.labelPosition
-	// 	? props.labelPosition == "top"
-	// 		? styles.wrapColumn
-	// 		: props.labelPosition == "right"
-	// 		? styles.wrapRowReverse
-	// 		: styles.wrapRow
-	// 	: styles.wrapColumn;
+	const classNameByPosition =
+		" " +
+		(props.label && props.labelPosition
+			? props.labelPosition == "left"
+				? styles.lblPosLeft
+				: props.labelPosition == "right"
+				? styles.lblPosRight
+				: styles.lblPosTop
+			: styles.lblPosTop);
 	const controlType = props.control || "input";
 	const Control = Controls[controlType];
 	return (
@@ -24,13 +26,13 @@ export const FieldLayout: React.FC<FieldLayoutProps> = (props) => {
 					: (props.fieldProps && props.fieldProps.type) || ""
 			}
 			render={({ input, meta }) => (
-				<div className={styles.wrapColumn}>
-					{controlType == "checkbox" || controlType == "radio" ? null : (
+				<div className={styles.wrapper + classNameByPosition}>
+					{controlType == "checkbox" || controlType == "radio" ? null : props.label ? (
 						<label className={styles.label} htmlFor={props.code}>
 							<span>{props.label}</span>
 							{props.required == true && <sup className={styles.requiredMark}>*</sup>}
 						</label>
-					)}
+					) : null}
 					<div className={styles.component}>
 						<div className={styles.container}>
 							<Control
@@ -70,5 +72,6 @@ export interface IFieldProps<
 	error?: string;
 	required?: boolean;
 	fieldProps?: FieldProps<FieldValue, RP, T>;
+	width?: number;
 }
 export type FieldLayoutProps = IFieldProps & ControlsProps;

@@ -15,13 +15,32 @@ wrapper	{
 	}
 }
 */
-.wrapColumn {
+.wrapper {
 	@apply px-4 mb-3;
 	@apply text-xs;
 }
+.lblPosRight {
+	@apply grid gap-x-4;
+	grid-template-columns:
+		minmax(0, 1fr)
+		minmax(0, max-content);
+}
+.lblPosRight .label {
+	order: 1;
+}
+.lblPosLeft {
+	@apply grid gap-x-4;
+	grid-template-columns:
+		minmax(0, max-content)
+		minmax(0, 1fr);
+	@apply box-border;
+}
+.lblPosTop {
+}
+
 .label {
 	@apply mb-2;
-	@apply block;
+	@apply inline-block;
 }
 .component {
 }
@@ -34,7 +53,7 @@ wrapper	{
 	@apply outline-0;
 	@apply box-border;
 	@apply w-full;
-	@apply block;
+	@apply inline-block;
 }
 .control:hover,
 .control:focus {
