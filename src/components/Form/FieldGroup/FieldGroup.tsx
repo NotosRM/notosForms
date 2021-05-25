@@ -12,6 +12,9 @@ type GroupLayoutProps = {
 export const FieldGroup: React.FC<GroupLayoutProps> = (props) => {
 	let { code, label, visible, collapsible, hSize, children } = props;
 	const [isCollapsed, setWrap] = React.useState(false);
+	const onClick = () => {
+		setWrap(!isCollapsed);
+	};
 	const BaseContent: React.FC = () => <div className={styles.content}>{children}</div>;
 
 	return visible || visible == void 0 ? (
@@ -19,16 +22,20 @@ export const FieldGroup: React.FC<GroupLayoutProps> = (props) => {
 			{label ? (
 				<div className={styles.header}>
 					{collapsible ? (
-						<span
-							className={
-								styles.collapser + (isCollapsed ? " " + styles.angleRight : " " + styles.angleDown)
-							}
-							onClick={() => {
-								setWrap(!isCollapsed);
-							}}
-						></span>
-					) : null}
-					<span>{label}</span>
+						<React.Fragment>
+							<span
+								className={
+									styles.collapser + (isCollapsed ? " " + styles.angleRight : " " + styles.angleDown)
+								}
+								onClick={onClick}
+							></span>
+							<a className={styles.labelCollapser} onClick={onClick}>
+								{label}
+							</a>
+						</React.Fragment>
+					) : (
+						<span className={styles.label}>{label}</span>
+					)}
 				</div>
 			) : null}
 			{!(collapsible && isCollapsed) ? <BaseContent /> : null}
