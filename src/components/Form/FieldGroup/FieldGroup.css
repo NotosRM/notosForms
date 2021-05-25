@@ -4,29 +4,12 @@
 	break-inside: avoid;
 	@apply dark:bg-gray-700 border-gray-900;
 	min-height: 28px;
+	@apply text-base-text;
 }
 
 .header {
 	@apply px-4 mb-3;
 	@apply flex;
-}
-.xs {
-	@apply text-xs;
-}
-.sm {
-	@apply text-sm;
-}
-.base {
-	@apply text-base;
-}
-.lg {
-	@apply text-lg;
-}
-.xl {
-	@apply text-xl;
-}
-.xxl {
-	@apply text-2xl;
 }
 .parent {
 }

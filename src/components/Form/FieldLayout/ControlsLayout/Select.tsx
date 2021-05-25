@@ -9,7 +9,7 @@ const Select: IControl<SelectProps> = (props) => {
 			{options?.hasNullable ? <option key={null}></option> : null}
 			{elements?.map((element: any) => (
 				<option key={element.value} value={element.value}>
-					{element.v}
+					{element.v == void 0 ? element.value : element.v}
 				</option>
 			))}
 		</select>
@@ -20,7 +20,7 @@ export interface SelectProps {
 	control: "select";
 	elements?: {
 		value: string;
-		v: string;
+		v?: string;
 	}[];
 	options?: SelectOptions;
 }

@@ -6,14 +6,29 @@ import { FieldLayout } from "./Form/FieldLayout/FieldLayout";
 import { FormLayout } from "./Form/FormLayout/FormLayout";
 
 export const Charts = () => {
-	let twoDimensionalGroupVisibilitiy = false;
 	return (
 		<div className={style.main}>
 			<FormLayout title="charts" onSubmit={(...args) => console.log(args)}>
+				<FieldLayout
+					code="themeChanger"
+					label="Тема"
+					control="select"
+					elements={["", "dark", "pink", "coffee", "dark-blue", "light-blue", "modern-blue"].map((el) => {
+						return { value: el };
+					})}
+				></FieldLayout>
+				<FormSpy
+					subscription={{ values: true }}
+					onChange={(props) => {
+						if (props.values.themeChanger != null) {
+							document.documentElement.classList.value = props.values.themeChanger;
+						}
+					}}
+				/>
 				<FieldGroup label="Пользовательские настройки">
 					<FieldLayout
 						code="notation"
-						label="Тип исчесления"
+						label="Тип исчисления"
 						control="select"
 						elements={[
 							{ value: "2d", v: "2D" },

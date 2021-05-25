@@ -1,7 +1,7 @@
 .header {
 	@apply text-2xl font-semibold;
-	@apply text-black dark:text-gray-100;
-	@apply p-2;
+	@apply text-base-primary;
+	@apply py-2 px-4;
 }
 .wrap {
 	@apply text-base;
@@ -16,10 +16,85 @@
 	@apply font-normal;
 	font-family: "Roboto", sans-serif;
 }
-.content * {
-}
 
-.actions {
+@layer base {
+	:root {
+		--brand-primary: #126199;
+		--brand-secondary: #127bb7;
+		--brand-success: #20b078;
+		--brand-info: #209de3;
+		--brand-warning: #ffba00;
+		--brand-danger: #ff3131;
+		--brand-fatal: #aa0000;
+
+		--base-text: #444444;
+		--base-primary: #252525;
+		--base-secondary: #e5e5e5;
+		--bg-color: #eee;
+
+		--text-base: 12px;
+	}
+	.pink {
+		--brand-primary: #da3483;
+		--brand-secondary: #e93491;
+		--brand-success: #97d63b;
+		--brand-info: #42abf0;
+		--brand-warning: #f38e18;
+		--brand-danger: #f01103;
+
+		--base-text: #666666;
+	}
+
+	.coffee {
+		--brand-primary: #614d45ff;
+		--brand-secondary: #bf5603ff;
+		--brand-success: #41a932;
+		--brand-info: #249ecc;
+		--brand-warning: #f16003;
+		--brand-danger: #e03434;
+
+		--base-text: #444444;
+	}
+	.modern-blue {
+		--brand-primary: #126199;
+		--brand-secondary: #127bb7;
+		--brand-success: #20b078;
+		--brand-info: #209de3;
+		--brand-warning: #ffba00;
+		--brand-danger: #ff3131;
+
+		--base-text: #444444;
+	}
+	.dark-blue {
+		--brand-primary: #0e4d79;
+		--brand-success: #41a932;
+		--brand-info: #249ecc;
+		--brand-warning: #f16003;
+		--brand-danger: #ff4136;
+
+		--base-text: #555555;
+	}
+	.light-blue {
+		--brand-primary: #0e4d9c;
+		--brand-success: #41a932;
+		--brand-info: #249ecc;
+		--brand-warning: #f16003;
+		--brand-danger: #ff4136;
+
+		--base-text: #555555;
+	}
+	.dark {
+		--brand-primary: #f3f4f6;
+		--brand-secondary: #127bb7;
+		--brand-success: #20b078;
+		--brand-info: #209de3;
+		--brand-warning: #ffba00;
+		--brand-danger: #ff3131;
+		--brand-fatal: #aa0000;
+		--base-primary: var(--brand-primary);
+
+		--base-text: var(--brand-primary);
+	}
 }
 
 /* *button */
@@ -51,6 +126,6 @@
 }
 .btn:hover {
 	color: #fff;
-	background-color: #0b5ed7;
+	background-color: ;
 	border-color: #0a58ca;
 }

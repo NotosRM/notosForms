@@ -1,9 +1,9 @@
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
-
 const APP_PATH = path.resolve(__dirname, "src");
 
+const themes = ["dark", "pink", "coffee", "dark-blue", "light-blue", "modern-blue"];
 module.exports = {
 	entry: APP_PATH,
 	output: {
@@ -30,7 +30,7 @@ module.exports = {
 							modules: {
 								localIdentName: "[path][name]__[local]",
 								getLocalIdent: (_context, _localIdentName, localName) => {
-									if (localName === "dark") return "dark";
+									if (themes.includes(localName)) return localName;
 								}
 							}
 						}
