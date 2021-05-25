@@ -14,9 +14,9 @@
 	@apply pb-2;
 	column-width: 420px;
 	@apply font-normal;
+	font-family: "Roboto", sans-serif;
 }
 .content * {
-	font-family: "Roboto", sans-serif;
 }
 
 .actions {

@@ -36,10 +36,12 @@
 .collapser {
 	@apply appearance-none;
 	@apply cursor-pointer;
+	font-family: "Font Awesome 5 Pro", "Font Awesome 5 Brands", "Font Awesome 5 Duotone";
+	min-width: 16px;
 }
 .angleDown:before {
-	content: "\f103";
+	content: "\f107";
 }
 .angleRight:before {
-	content: "\f101";
+	content: "\f105";
 }
