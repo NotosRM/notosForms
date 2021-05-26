@@ -1,0 +1,27 @@
+{
+	"title": "A registration form",
+	"description": "A simple form example.",
+	"type": "object",
+
+	"properties": {
+		"firstName": {
+			"type": "number",
+			"label": "First name"
+		},
+		"lastName": {
+			"type": "string",
+			"label": "Last name"
+		},
+		"Group": {
+			"type": "object",
+			"label": "GroupName",
+			"properties": {
+				"gender": {
+					"type": "string",
+					"label": "Gender",
+					"enum": ["", "male", "female"]
+				}
+			}
+		}
+	}
+}

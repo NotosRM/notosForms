@@ -1,9 +1,9 @@
 import React from "react";
 import { FormSpy } from "react-final-form";
+import { FieldGroup } from "../components/Form/FieldGroup/FieldGroup";
+import { FieldLayout } from "../components/Form/FieldLayout/FieldLayout";
+import { FormLayout } from "../components/Form/FormLayout/FormLayout";
 import style from "./App.css";
-import { FieldGroup } from "./Form/FieldGroup/FieldGroup";
-import { FieldLayout } from "./Form/FieldLayout/FieldLayout";
-import { FormLayout } from "./Form/FormLayout/FormLayout";
 
 export const App = () => {
 	const validate = (values: any) => {

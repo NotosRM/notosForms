@@ -1,9 +1,9 @@
 import React, { InputHTMLAttributes } from "react";
 import { Field, FormSpy } from "react-final-form";
 import style from "./App.css";
-import { FieldGroup } from "./Form/FieldGroup/FieldGroup";
-import { FieldLayout } from "./Form/FieldLayout/FieldLayout";
-import { FormLayout } from "./Form/FormLayout/FormLayout";
+import { FieldGroup } from "../components/Form/FieldGroup/FieldGroup";
+import { FieldLayout } from "../components/Form/FieldLayout/FieldLayout";
+import { FormLayout } from "../components/Form/FormLayout/FormLayout";
 
 export const Charts = () => {
 	return (

@@ -2,7 +2,7 @@ import React from "react";
 import { Form, FormProps } from "react-final-form";
 import styles from "./FormLayout.css";
 
-interface FormLayoutProps<FormValues = Record<string, any>, InitialFormValues = Partial<FormValues>>
+export interface FormLayoutProps<FormValues = Record<string, any>, InitialFormValues = Partial<FormValues>>
 	extends FormProps<FormValues, InitialFormValues> {
 	title?: string;
 	description?: string;
