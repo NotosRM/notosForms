@@ -1,4 +1,4 @@
-import { JSONSchema4, JSONSchema4TypeName } from "json-schema";
+import { JSONSchema4, JSONSchema4TypeName, validate, ValidationError } from "json-schema";
 import React from "react";
 import { FieldGroup } from "../Form/FieldGroup/FieldGroup";
 import { FieldLayout, FieldLayoutProps } from "../Form/FieldLayout/FieldLayout";
@@ -8,18 +8,18 @@ interface JsonSchemaFormProps<FormValues = Record<string, any>, InitialFormValue
 	extends FormLayoutProps<FormValues, InitialFormValues> {
 	schema: JSONSchema4;
 }
-class ModelGenerator {
-	static Method() {}
-}
+
 export const JsonSchemaForm: React.FC<JsonSchemaFormProps> = (props) => {
 	let { schema, ...formProps } = props;
 
-	//TODO:
-	// let schemaValidation = (values: any) => {
-	// 	//todo: подключить либу валидации
-	// 	//todo: привести ошибки из библиотеки в final-form
-	// 	return null;
-	// };
+	let schemaValidation = (values: any) => {
+		const errors: any = {};
+		validate(values, schema).errors.map((e: ValidationError) => {
+			Object.defineProperty(errors, e.property, { value: e.message });
+		});
+		return errors;
+	};
+
 	let createLayout = (parentProp: JSONSchema4) => {
 		return Object.keys(parentProp || []).map((value, index) => {
 			const component = parentProp[value];
@@ -56,7 +56,7 @@ export const JsonSchemaForm: React.FC<JsonSchemaFormProps> = (props) => {
 		});
 	};
 	return (
-		<FormLayout title={schema.title} description={schema.description} {...formProps}>
+		<FormLayout title={schema.title} description={schema.description} validate={schemaValidation} {...formProps}>
 			{createLayout(schema.properties || {})}
 		</FormLayout>
 	);

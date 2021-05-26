@@ -2,14 +2,20 @@
 	"title": "A registration form",
 	"description": "A simple form example.",
 	"type": "object",
-
 	"properties": {
 		"firstName": {
-			"type": "number",
-			"label": "First name"
-		},
-		"lastName": {
 			"type": "string",
+			"minLength": 3,
+			"label": "First name",
+			"required": ["firstName"]
+		},
+		"phoneNumber": {
+			"type": "string",
+			"pattern": "[0-9]{11}",
+			"required": ["firstName"],
+			"options": {
+				"placeholder": "+7(___)___-__-__"
+			},
 			"label": "Last name"
 		},
 		"Group": {
