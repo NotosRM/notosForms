@@ -4,7 +4,6 @@
 	break-inside: avoid;
 	@apply dark:bg-gray-700 border-gray-900;
 	min-height: 28px;
-	@apply text-base-text;
 }
 
 .header {

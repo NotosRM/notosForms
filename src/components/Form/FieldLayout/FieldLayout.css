@@ -43,6 +43,10 @@ wrapper	{
 	@apply inline-block;
 	@apply text-primary;
 }
+.checkLabel {
+	@apply inline-block;
+	@apply text-primary;
+}
 .component {
 }
 .container {
@@ -55,7 +59,7 @@ wrapper	{
 	@apply box-border;
 	@apply w-full;
 	@apply inline-block;
-	@apply text-base-text;
+	@apply text-base-primary;
 }
 .control:hover,
 .control:focus {
@@ -137,9 +141,6 @@ wrapper	{
 .checkInput:disabled {
 	@apply pointer-events-none;
 	@apply filter-none;
-}
-.checkLabel {
-	@apply inline-block;
 }
 
 .description {

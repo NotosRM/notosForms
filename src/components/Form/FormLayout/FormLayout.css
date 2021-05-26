@@ -1,10 +1,11 @@
 .header {
 	@apply text-2xl font-semibold;
-	@apply text-base-primary;
+	@apply text-base-text;
 	@apply py-2 px-4;
 }
 .wrap {
 	@apply text-base;
+	@apply text-base-text;
 }
 .description {
 }
@@ -27,8 +28,8 @@
 		--brand-danger: #ff3131;
 		--brand-fatal: #aa0000;
 
-		--base-text: #444444;
-		--base-primary: #252525;
+		--base-text: #252525;
+		--base-primary: #444444;
 		--base-secondary: #e5e5e5;
 		--bg-color: #eee;
 
@@ -42,7 +43,7 @@
 		--brand-warning: #f38e18;
 		--brand-danger: #f01103;
 
-		--base-text: #666666;
+		--base-primary: #666666;
 	}
 
 	.coffee {
@@ -53,7 +54,7 @@
 		--brand-warning: #f16003;
 		--brand-danger: #e03434;
 
-		--base-text: #444444;
+		--base-primary: #444444;
 	}
 	.modern-blue {
 		--brand-primary: #126199;
@@ -63,7 +64,7 @@
 		--brand-warning: #ffba00;
 		--brand-danger: #ff3131;
 
-		--base-text: #444444;
+		--base-primary: #444444;
 	}
 	.dark-blue {
 		--brand-primary: #0e4d79;
@@ -72,7 +73,7 @@
 		--brand-warning: #f16003;
 		--brand-danger: #ff4136;
 
-		--base-text: #555555;
+		--base-primary: #555555;
 	}
 	.light-blue {
 		--brand-primary: #0e4d9c;
@@ -81,7 +82,7 @@
 		--brand-warning: #f16003;
 		--brand-danger: #ff4136;
 
-		--base-text: #555555;
+		--base-primary: #555555;
 	}
 	.dark {
 		--brand-primary: #f3f4f6;
@@ -91,7 +92,7 @@
 		--brand-warning: #ffba00;
 		--brand-danger: #ff3131;
 		--brand-fatal: #aa0000;
-		--base-primary: var(--brand-primary);
+		/* --base-primary: var(--brand-primary); */
 
 		--base-text: var(--brand-primary);
 	}
