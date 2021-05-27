@@ -11,54 +11,126 @@ interface JsonSchemaFormProps<FormValues = Record<string, any>, InitialFormValue
 
 export const JsonSchemaForm: React.FC<JsonSchemaFormProps> = (props) => {
 	let { schema, ...formProps } = props;
-	//TODO: Отдавать в дочерние компоненты всю схему, и получать данные, проходя по пути -> для работы $ref
+	const path = "#";
+	const schemaValidation = (values: any) => {
+		let errors: any = {};
+		let v = validate(values, schema);
 
-	let schemaValidation = (values: any) => {
-		const errors: any = {};
-
-		validate(values, schema).errors.map((e: ValidationError) => {
-			Object.defineProperty(errors, e.property, { value: e.message });
+		v.errors.map((e: ValidationError) => {
+			let errorObject = {};
+			let path = e.property.split(".").reverse();
+			path.forEach((key, index) => {
+				if (index == path.length - 1) {
+					if (index == 0) Object.defineProperty(errors, `${key}`, { value: e.message });
+					else Object.defineProperty(errors, `${key}`, { value: errorObject });
+					return;
+				}
+				if (index == 0) {
+					Object.defineProperty(errorObject, `${key}`, { value: e.message });
+					return;
+				}
+				errorObject = Object.defineProperty({}, `${key}`, { value: errorObject });
+			});
 		});
+
 		return errors;
 	};
-	let createLayout = (parentProp: JSONSchema4) => {
-		return Object.keys(parentProp || []).map((value, index) => {
-			const component = parentProp[value];
-			let { type, enum: t, ...rest } = component;
+	const goToSchema = (s: JSONSchema4, path: string) => {
+		return path
+			.slice(2)
+			.split("/")
+			.reduce(function (obj, key) {
+				return obj[key];
+			}, s);
+	};
+	const makeCode = (path: string) => {
+		return path
+			.slice(2)
+			.split("/")
+			.filter((value) => value != "properties")
+			.join(".");
+	};
+	let createAnyOf = (schema: JSONSchema4, path: string) => {
+		path = `${path}/anyOf`;
+		let schemas = goToSchema(schema, path);
+
+		return <React.Fragment></React.Fragment>;
+	};
+	let createLayout = (schema: JSONSchema4, path: string = "") => {
+		let currentSchema: JSONSchema4 = goToSchema(schema, path);
+		let { type, enum: t, anyOf, ...rest } = currentSchema;
+
+		return Object.keys(currentSchema || []).map((key) => {
+			const component = currentSchema[key];
+			let { type, title, description, options, enum: t, anyOf, required, ...rest } = component;
+			let r = required ? true : false;
+			let currentCode = makeCode(path + "/" + key);
+			if (!type) return null;
 			if (type == "object") {
 				let { properties, ...fgProps } = rest;
 				return (
-					<FieldGroup key={value + index} code={value} {...fgProps}>
-						{createLayout(properties)}
+					<FieldGroup key={currentCode} code={currentCode} label={title} {...fgProps}>
+						{schema?.properties ? createLayout(schema, `${path}/${key}/properties`) : null}
+						{schema?.anyOf ? createAnyOf(schema, `${path}/${key}`) : null}
 					</FieldGroup>
 				);
 			}
 			if (t)
 				return (
-					<FieldLayout key={value + index} code={value} control="select" elements={t} {...rest}></FieldLayout>
+					<FieldLayout
+						key={currentCode}
+						code={currentCode}
+						elements={t.map((el: any) => {
+							return el != null ? el.toString() : "";
+						})}
+						control="select"
+					></FieldLayout>
 				);
 			if (type == "string") {
-				return <FieldLayout key={value + index} code={value} {...rest}></FieldLayout>;
+				return (
+					<FieldLayout
+						key={currentCode}
+						code={currentCode}
+						label={title}
+						description={description}
+						required={r}
+						{...rest}
+					></FieldLayout>
+				);
 			}
 			if (type == "number") {
 				return (
 					<FieldLayout
-						key={value + index}
-						code={value}
-						fieldProps={{ type: "number" }}
+						key={currentCode}
+						code={currentCode}
+						label={title}
+						description={description}
+						fieldProps={{ name: currentCode, type: "number" }}
 						{...rest}
 					></FieldLayout>
 				);
 			}
 			if (type == "boolean") {
-				return <FieldLayout key={value + index} code={value} control="checkbox" {...rest}></FieldLayout>;
+				return (
+					<FieldLayout
+						key={currentCode}
+						code={currentCode}
+						label={title}
+						description={description}
+						control="checkbox"
+						{...rest}
+					></FieldLayout>
+				);
 			}
 			return null;
 		});
 	};
 	return (
 		<FormLayout title={schema.title} description={schema.description} validate={schemaValidation} {...formProps}>
-			{createLayout(schema.properties || {})}
+			<React.Fragment>
+				{schema?.properties ? createLayout(schema, `${path}/properties`) : null}
+				{schema?.anyOf ? createAnyOf(schema, path) : null}
+			</React.Fragment>
 		</FormLayout>
 	);
 };

@@ -1,45 +1,29 @@
 {
-	"title": "A registration form",
-	"description": "описание",
 	"type": "object",
-	"properties": {
-		"firstName": {
-			"type": "string",
-			"label": "First name",
-			"minLength": 3,
-			"maxLength": 25
-		},
-		"lastName": {
-			"type": "string",
-			"label": "Last name ",
-			"minLength": 3,
-			"maxLength": 25
-		},
-		"Age": {
-			"type": "number",
-			"label": "Age"
-		},
-		"phoneNumber": {
-			"type": "string",
-			"pattern": "[0-9]{11}",
-			"options": {
-				"placeholder": "enter u phone number"
-			},
-			"label": "phoneNumber",
-			"minLength": 11,
-			"maxLength": 11
-		},
-		"Group": {
-			"type": "object",
-			"label": "GroupName",
+	"title": "Заголовок",
+	"anyOf": [
+		{
+			"title": "First method of identification",
 			"properties": {
-				"gender": {
+				"firstName": {
 					"type": "string",
-					"label": "Gender",
-					"enum": ["", "male", "female"]
+					"title": "First name",
+					"default": "Chuck"
+				},
+				"lastName": {
+					"type": "string",
+					"title": "Last name"
+				}
+			}
+		},
+		{
+			"title": "Second method of identification",
+			"properties": {
+				"idCode": {
+					"type": "string",
+					"title": "ID code"
 				}
 			}
 		}
-	},
-	"required": ["firstName", "phoneNumber"]
+	]
 }
