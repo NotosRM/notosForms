@@ -26,7 +26,7 @@ export interface SelectProps {
 				value: string;
 				v?: string;
 		  }[]
-		| [];
+		| string[];
 	options?: SelectOptions;
 }
 interface SelectOptions {

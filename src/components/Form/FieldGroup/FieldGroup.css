@@ -9,6 +9,7 @@
 .header {
 	@apply px-4 mb-3;
 	@apply flex;
+	@apply text-xl;
 }
 .label {
 }

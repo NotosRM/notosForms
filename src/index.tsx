@@ -13,8 +13,8 @@ const schema: JSONSchema4 = require("./examples/example.json");
 render(
 	<div className={style.main}>
 		<JsonSchemaForm schema={schema} onSubmit={(...args) => console.log(args)} />
-		{/* <App />
-		<Charts /> */}
+		{/* <App />*/}
+		{/* <Charts /> */}
 	</div>,
 	document.getElementById("root")
 );

@@ -11,15 +11,16 @@ interface JsonSchemaFormProps<FormValues = Record<string, any>, InitialFormValue
 
 export const JsonSchemaForm: React.FC<JsonSchemaFormProps> = (props) => {
 	let { schema, ...formProps } = props;
+	//TODO: Отдавать в дочерние компоненты всю схему, и получать данные, проходя по пути -> для работы $ref
 
 	let schemaValidation = (values: any) => {
 		const errors: any = {};
+
 		validate(values, schema).errors.map((e: ValidationError) => {
 			Object.defineProperty(errors, e.property, { value: e.message });
 		});
 		return errors;
 	};
-
 	let createLayout = (parentProp: JSONSchema4) => {
 		return Object.keys(parentProp || []).map((value, index) => {
 			const component = parentProp[value];

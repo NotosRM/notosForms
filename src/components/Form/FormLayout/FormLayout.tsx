@@ -16,14 +16,10 @@ export const FormLayout: React.FC<FormLayoutProps> = (props) => {
 			{...rest}
 			render={({ handleSubmit }) => (
 				<form className={styles.wrap} onSubmit={handleSubmit}>
-					{title ? (
+					{title || description ? (
 						<div className={styles.header}>
-							<span>{title}</span>
-						</div>
-					) : null}
-					{description ? (
-						<div className={styles.description}>
-							<span>{description}</span>
+							{title ? <span className={styles.title}>{title}</span> : null}
+							{description ? <i className={styles.description}>{description}</i> : null}
 						</div>
 					) : null}
 					{children ? <div className={styles.content}>{children}</div> : null}

@@ -1,22 +1,33 @@
 {
 	"title": "A registration form",
-	"description": "A simple form example.",
+	"description": "описание",
 	"type": "object",
 	"properties": {
 		"firstName": {
 			"type": "string",
-			"minLength": 3,
 			"label": "First name",
-			"required": ["firstName"]
+			"minLength": 3,
+			"maxLength": 25
+		},
+		"lastName": {
+			"type": "string",
+			"label": "Last name ",
+			"minLength": 3,
+			"maxLength": 25
+		},
+		"Age": {
+			"type": "number",
+			"label": "Age"
 		},
 		"phoneNumber": {
 			"type": "string",
 			"pattern": "[0-9]{11}",
-			"required": ["firstName"],
 			"options": {
-				"placeholder": "+7(___)___-__-__"
+				"placeholder": "enter u phone number"
 			},
-			"label": "Last name"
+			"label": "phoneNumber",
+			"minLength": 11,
+			"maxLength": 11
 		},
 		"Group": {
 			"type": "object",
@@ -29,5 +40,6 @@
 				}
 			}
 		}
-	}
+	},
+	"required": ["firstName", "phoneNumber"]
 }

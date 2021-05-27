@@ -1,13 +1,18 @@
 .header {
-	@apply text-2xl font-semibold;
+	@apply font-semibold;
 	@apply text-base-text;
-	@apply py-2 px-4;
+	@apply py-2 px-4 mb-3;
 }
 .wrap {
 	@apply text-base;
 	@apply text-base-text;
 }
+.title {
+	@apply text-2xl;
+	display: block;
+}
 .description {
+	display: block;
 }
 
 .content {
