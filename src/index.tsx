@@ -15,7 +15,7 @@ render(
 	<React.Fragment>
 		<div className={style.main}>
 			<JsonSchemaForm schema={schema} onSubmit={(...args) => console.log(args)} />
-			{/* <App />*/}
+			{/* <App /> */}
 			{/* <Charts /> */}
 		</div>
 		{/* <div className={style.monaco}>

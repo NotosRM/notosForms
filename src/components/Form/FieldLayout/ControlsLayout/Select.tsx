@@ -6,11 +6,11 @@ const Select: IControl<SelectProps> = (props) => {
 	return (
 		<select {...input} className={className}>
 			{options?.hasNullable ? <option key={null}></option> : null}
-			{elements?.map((element: any) => {
+			{elements?.map((element: any, index: number) => {
 				const value = element.value ? element.value : element;
 				const v = element.v ? element.v : value;
 				return (
-					<option key={value} value={value}>
+					<option key={value + index} value={value}>
 						{v}
 					</option>
 				);

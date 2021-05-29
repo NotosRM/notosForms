@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes } from "react";
+import React, { InputHTMLAttributes, useState } from "react";
 import { Field, FormSpy } from "react-final-form";
 import style from "./App.css";
 import { FieldGroup } from "../components/Form/FieldGroup/FieldGroup";
@@ -6,6 +6,7 @@ import { FieldLayout } from "../components/Form/FieldLayout/FieldLayout";
 import { FormLayout } from "../components/Form/FormLayout/FormLayout";
 
 export const Charts = () => {
+	let [state, setState] = useState(true);
 	return (
 		<div className={style.main}>
 			<FormLayout title="charts" onSubmit={(...args) => console.log(args)}>
@@ -19,6 +20,9 @@ export const Charts = () => {
 					subscription={{ values: true }}
 					onChange={(props) => {
 						document.documentElement.classList.value = props.values.themeChanger;
+						if (props.values?.notation == "polar") {
+							setState(false);
+						}
 					}}
 				/>
 				<FieldGroup label="Пользовательские настройки">
@@ -35,7 +39,7 @@ export const Charts = () => {
 					<FieldLayout code="title" label="Заголовок графика"></FieldLayout>
 				</FieldGroup>
 
-				<FieldGroup label="Настройки 2D графиков" collapsible={true}>
+				<FieldGroup label="Настройки 2D графиков" collapsible={true} visible={state}>
 					<FieldLayout
 						code="chart-2d-type"
 						label="Тип графика"
@@ -49,7 +53,7 @@ export const Charts = () => {
 					<FieldLayout code="is-segmented" label="Отображать сегметированно" control="checkbox"></FieldLayout>
 					{/* Для line и area*/}
 				</FieldGroup>
-				<FieldGroup label="Настройки осей" hSize="2xl">
+				<FieldGroup label="Настройки осей" hSize="2xl" visible={state}>
 					{/* Ось ключей*/}
 					<FieldGroup label="Параметры оси ключей">
 						<FieldLayout

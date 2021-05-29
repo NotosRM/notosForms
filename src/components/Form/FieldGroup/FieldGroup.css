@@ -1,5 +1,5 @@
 .wrap {
-	@apply pt-3 pb-1;
+	@apply pt-3 pb-1 mb-3;
 	@apply bg-gray-100;
 	break-inside: avoid;
 	@apply dark:bg-gray-700 border-gray-900;
@@ -12,6 +12,9 @@
 	@apply text-xl;
 }
 .label {
+}
+.description {
+	display: block;
 }
 .labelCollapser {
 	@apply hover:underline cursor-pointer;
