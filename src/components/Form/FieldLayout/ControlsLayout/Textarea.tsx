@@ -14,6 +14,6 @@ export interface TextareaProps {
 	options?: TextareasOptions;
 }
 interface TextareasOptions {
-	placeholder: string;
+	placeholder?: string;
 }
 export default Textarea;

@@ -49,7 +49,7 @@ export const FieldLayout: React.FC<FieldLayoutProps> = (props) => {
 						</div>
 
 						{meta.touched && meta.error ? (
-							<div className={styles.error}>{meta.error}</div>
+							<div className={styles.error}>{props.error || meta.error}</div>
 						) : (
 							props.description && <div className={styles.description}>{props.description}</div>
 						)}

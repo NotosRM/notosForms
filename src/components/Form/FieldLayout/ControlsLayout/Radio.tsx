@@ -8,12 +8,7 @@ const Radio: IControl<RadioProps> = (props) => {
 	let { checked, ...inputRP } = input;
 	return (
 		<div className={className}>
-			<input
-				{...inputRP}
-				// checked={input.checked}
-				className={styles.checkInput}
-				id={code}
-			/>
+			<input {...inputRP} className={styles.checkInput} id={code} />
 			{label && (
 				<label htmlFor={code} className={styles.checkLabel}>
 					{label}

@@ -27,17 +27,15 @@
 				},
 				"charts": {
 					"title": "Параметры 2d-графиков",
-					"type": "array",
-					"items": {
-						"anyOf": [
-							{
-								"$ref": "#/definitions/BarChart"
-							},
-							{
-								"$ref": "#/definitions/LineAreaChart"
-							}
-						]
-					}
+					"type": "object",
+					"anyOf": [
+						{
+							"$ref": "#/definitions/BarChart"
+						},
+						{
+							"$ref": "#/definitions/LineAreaChart"
+						}
+					]
 				},
 				"title": {
 					"title": "Заголовок графика",
@@ -133,10 +131,7 @@
 					"properties": {
 						"valueFields": {
 							"title": "Наименования отображаемых полей-значений",
-							"type": "array",
-							"items": {
-								"type": "string"
-							}
+							"type": "string"
 						}
 					},
 					"required": ["valueFields"]
