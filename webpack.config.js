@@ -1,7 +1,9 @@
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
+const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 const APP_PATH = path.resolve(__dirname, "src");
+const MONACO_DIR = path.resolve(__dirname, "node_modules/monaco-editor");
 
 const themes = ["dark", "pink", "coffee", "dark-blue", "light-blue", "modern-blue"];
 module.exports = {
@@ -22,6 +24,7 @@ module.exports = {
 			},
 			{
 				test: /\.css$/i,
+				include: APP_PATH,
 				use: [
 					"style-loader",
 					{
@@ -37,6 +40,15 @@ module.exports = {
 					},
 					"postcss-loader"
 				]
+			},
+			{
+				test: /\.css$/,
+				include: MONACO_DIR,
+				use: ["style-loader", "css-loader"]
+			},
+			{
+				test: /\.ttf$/,
+				use: ["file-loader"]
 			}
 		]
 	},
@@ -50,6 +62,9 @@ module.exports = {
 			inject: true,
 			template: path.join(APP_PATH, "index.html")
 		}),
-		new ForkTsCheckerWebpackPlugin()
+		new ForkTsCheckerWebpackPlugin(),
+		new MonacoWebpackPlugin({
+			languages: ["json"]
+		})
 	]
 };

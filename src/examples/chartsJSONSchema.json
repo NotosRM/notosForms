@@ -18,42 +18,40 @@
 			"type": "object",
 			"properties": {
 				"type": {
-					"description": "Тип исчисления графика",
+					"title": "Тип исчисления графика",
 					"type": "string",
 					"enum": ["2d"]
 				},
 				"axes": {
-					"$ref": "#/definitions/Axes",
-					"description": "Параметры осей 2d-графика"
+					"$ref": "#/definitions/Axes"
 				},
 				"charts": {
-					"description": "Параметры 2d-графиков",
-					"type": "array",
-					"items": {
-						"anyOf": [
-							{
-								"$ref": "#/definitions/BarChart"
-							},
-							{
-								"$ref": "#/definitions/LineAreaChart"
-							}
-						]
-					}
+					"title": "Параметры 2d-графиков",
+					"type": "object",
+					"anyOf": [
+						{
+							"$ref": "#/definitions/BarChart"
+						},
+						{
+							"$ref": "#/definitions/LineAreaChart"
+						}
+					]
 				},
 				"title": {
-					"description": "Заголовок графика",
+					"title": "Заголовок графика",
 					"type": "string"
 				},
 				"keyField": {
-					"description": "Наименование поля-ключа",
+					"title": "Наименование поля-ключа",
 					"type": "string"
 				},
 				"tooltipMarkdown": {
-					"description": "Маркдаун тултипа",
+					"title": "Маркдаун тултипа",
 					"type": "string"
 				},
 				"legend": {
-					"description": "Отображение легенды.\nПо умолчанию для polar-графиков отображается всегда, а для 2d-графиков - когда количество полей значений больше одного.",
+					"title": "Отображение легенды.",
+					"description": "По умолчанию для polar-графиков отображается всегда, а для 2d-графиков - когда количество полей значений больше одного.",
 					"type": "boolean"
 				}
 			},
@@ -61,43 +59,48 @@
 		},
 		"Axes": {
 			"type": "object",
+			"title": "Параметры осей 2d-графика",
 			"properties": {
 				"orientation": {
-					"$ref": "#/definitions/Orientation",
-					"description": "Ориентация графиков.\nПри вертикальной ориентации ось ключей будет расположена сверху или снизу.\nПри горизонтальной ориентации ось ключей будет расположена слева или справа.\nПо умолчанию вертикальная."
+					"$ref": "#/definitions/Orientation"
 				},
 				"key": {
-					"description": "Параметры оси ключей",
+					"title": "Параметры оси ключей",
 					"type": "object",
 					"properties": {
 						"position": {
 							"$ref": "#/definitions/AxisPosition",
-							"description": "Позиция оси ключей.\nПо умолчанию равна \"end\", если график вертикальный и \"start\" - если график горизонтальный."
+							"title": "Позиция оси ключей.",
+							"description": "По умолчанию равна \"end\", если график вертикальный и \"start\" - если график горизонтальный."
 						},
 						"visible": {
-							"description": "Отображение оси.\nПо умолчанию всегда отображается.",
+							"title": "Отображение оси.",
+							"description": "\nПо умолчанию всегда отображается.",
 							"type": "boolean"
 						},
 						"gridLine": {
-							"description": "Отображение линий сетки оси.\nПо умолчанию всегда скрывается.",
+							"title": "Отображение линий сетки оси.",
+							"description": "По умолчанию всегда скрывается.",
 							"type": "boolean"
 						}
 					}
 				},
 				"value": {
-					"description": "Параметры оси значений",
+					"title": "Параметры оси значений",
 					"type": "object",
 					"properties": {
 						"position": {
 							"$ref": "#/definitions/AxisPosition",
-							"description": "Позиция оси значений.\nПо умолчанию равна \"start\", если график вертикальный и \"end\" - если график горизонтальный."
+							"title": "Позиция оси значений.",
+							"description": "По умолчанию равна \"start\", если график вертикальный и \"end\" - если график горизонтальный."
 						},
 						"visible": {
-							"description": "Отображение оси.\nПо умолчанию не отображается только тогда, когда все графики имеют встроенные лейблы, показывающие значения.",
+							"title": "Отображение оси.",
+							"description": "По умолчанию не отображается только тогда, когда все графики имеют встроенные лейблы, показывающие значения.",
 							"type": "boolean"
 						},
 						"gridLine": {
-							"description": "Отображение линий сетки оси.\nПо умолчанию всегда отображается",
+							"title": "Отображение линий сетки оси.\nПо умолчанию всегда отображается",
 							"type": "boolean"
 						}
 					}
@@ -106,7 +109,9 @@
 		},
 		"Orientation": {
 			"enum": ["horizontal", "vertical"],
-			"type": "string"
+			"type": "string",
+			"title": "Ориентация графиков.",
+			"description": "При вертикальной ориентации ось ключей будет расположена сверху или снизу.\nПри горизонтальной ориентации ось ключей будет расположена слева или справа.\nПо умолчанию вертикальная."
 		},
 		"AxisPosition": {
 			"enum": ["end", "start"],
@@ -116,26 +121,23 @@
 			"type": "object",
 			"properties": {
 				"type": {
-					"description": "Тип 2D-графика",
+					"title": "Тип 2D-графика",
 					"type": "string",
 					"enum": ["bar"]
 				},
 				"data": {
-					"description": "Параметры данных, привязанных к графику",
+					"title": "Параметры данных, привязанных к графику",
 					"type": "object",
 					"properties": {
 						"valueFields": {
-							"description": "Наименования отображаемых полей-значений",
-							"type": "array",
-							"items": {
-								"type": "string"
-							}
+							"title": "Наименования отображаемых полей-значений",
+							"type": "string"
 						}
 					},
 					"required": ["valueFields"]
 				},
 				"isSegmented": {
-					"description": "Отображение графика в сегментированном виде",
+					"title": "Отображение графика в сегментированном виде",
 					"type": "boolean"
 				}
 			},
@@ -145,30 +147,28 @@
 			"type": "object",
 			"properties": {
 				"type": {
-					"description": "Тип 2D-графика",
+					"title": "Тип 2D-графика",
 					"enum": ["area", "line"],
 					"type": "string"
 				},
 				"markers": {
-					"description": "Отображение маркеров.\nПо умолчанию всегда скрыты.",
+					"title": "Отображение маркеров.",
+					"description": "По умолчанию всегда скрыты.",
 					"type": "boolean"
 				},
 				"data": {
-					"description": "Параметры данных, привязанных к графику",
+					"title": "Параметры данных, привязанных к графику",
 					"type": "object",
 					"properties": {
 						"valueFields": {
-							"description": "Наименования отображаемых полей-значений",
-							"type": "array",
-							"items": {
-								"type": "string"
-							}
+							"title": "Наименования отображаемых полей-значений",
+							"type": "string"
 						}
 					},
 					"required": ["valueFields"]
 				},
 				"isSegmented": {
-					"description": "Отображение графика в сегментированном виде",
+					"title": "Отображение графика в сегментированном виде",
 					"type": "boolean"
 				}
 			},
@@ -179,28 +179,29 @@
 			"type": "object",
 			"properties": {
 				"type": {
-					"description": "Тип исчисления графика",
+					"title": "Тип исчисления графика",
 					"type": "string",
 					"enum": ["polar"]
 				},
 				"chart": {
 					"$ref": "#/definitions/PolarChart",
-					"description": "Параметры polar-графика"
+					"title": "Параметры polar-графика"
 				},
 				"title": {
-					"description": "Заголовок графика",
+					"title": "Заголовок графика",
 					"type": "string"
 				},
 				"keyField": {
-					"description": "Наименование поля-ключа",
+					"title": "Наименование поля-ключа",
 					"type": "string"
 				},
 				"tooltipMarkdown": {
-					"description": "Маркдаун тултипа",
+					"title": "Маркдаун тултипа",
 					"type": "string"
 				},
 				"legend": {
-					"description": "Отображение легенды.\nПо умолчанию для polar-графиков отображается всегда, а для 2d-графиков - когда количество полей значений больше одного.",
+					"title": "Отображение легенды.",
+					"description": "По умолчанию для polar-графиков отображается всегда, а для 2d-графиков - когда количество полей значений больше одного.",
 					"type": "boolean"
 				}
 			},
@@ -210,7 +211,7 @@
 			"type": "object",
 			"properties": {
 				"valueField": {
-					"description": "Наименование отображаемого поля-значения",
+					"title": "Наименование отображаемого поля-значения",
 					"type": "string"
 				}
 			},

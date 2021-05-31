@@ -20,22 +20,17 @@ export const App = () => {
 	return (
 		<div className={style.main}>
 			<FormLayout title="Customer registration" validate={validate} onSubmit={(...args) => console.log(args)}>
-				<FieldGroup label="Personal information">
-					<FieldLayout
-						code="firstName"
-						label="First name"
-						description="Your full name"
-						labelPosition="right"
-					/>
-					<FieldLayout
-						code="lastName"
-						label="Last name"
-						required={true}
-						options={{ placeholder: "u last name" }}
-						labelPosition="left"
-					/>
-					<FieldLayout code="gender" label="Gender" control="select" elements={genders} />
-				</FieldGroup>
+				{/* <FieldGroup label="Personal information"> */}
+				<FieldLayout code="firstName" label="First name" description="Your full name" labelPosition="right" />
+				<FieldLayout
+					code="lastName"
+					label="Last name"
+					required={true}
+					options={{ placeholder: "u last name" }}
+					labelPosition="left"
+				/>
+				<FieldLayout code="gender" label="Gender" control="select" elements={genders} />
+				{/* </FieldGroup> */}
 				<FieldGroup label="Contact information">
 					<FieldLayout code="phone" label="Phone" labelPosition="top" />
 					<FieldLayout code="email" label="Email" />

@@ -12,6 +12,7 @@
 	@apply text-xl;
 }
 .label {
+	display: block;
 }
 .description {
 	display: block;
@@ -36,4 +37,7 @@
 }
 .angleRight:before {
 	content: "\f105";
+}
+.description {
+	display: block;
 }

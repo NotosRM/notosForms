@@ -1,221 +1,33 @@
 {
-	"title": "Charts",
 	"type": "object",
+	"title": "Form title",
 	"properties": {
-		"ChartControlOptions": {
+		"Group": {
+			"type": "object",
+			"title": "Group title",
 			"anyOf": [
 				{
-					"$ref": "#/definitions/TwoDimensionalOptions"
+					"type": "object",
+					"title": "Schema composition element 1",
+					"properties": {
+						"firstName": {
+							"type": "string",
+							"title": "First name"
+						}
+					}
 				},
 				{
-					"$ref": "#/definitions/PolarOptions"
+					"type": "object",
+					"title": "Schema composition element 2",
+					"properties": {
+						"gender": {
+							"type": "string",
+							"title": "Gender",
+							"enum": ["", "male", "female"]
+						}
+					}
 				}
 			]
-		}
-	},
-	"definitions": {
-		"TwoDimensionalOptions": {
-			"type": "object",
-			"properties": {
-				"type": {
-					"title": "Тип исчисления графика",
-					"type": "string",
-					"enum": ["2d"]
-				},
-				"axes": {
-					"$ref": "#/definitions/Axes"
-				},
-				"charts": {
-					"title": "Параметры 2d-графиков",
-					"type": "object",
-					"anyOf": [
-						{
-							"$ref": "#/definitions/BarChart"
-						},
-						{
-							"$ref": "#/definitions/LineAreaChart"
-						}
-					]
-				},
-				"title": {
-					"title": "Заголовок графика",
-					"type": "string"
-				},
-				"keyField": {
-					"title": "Наименование поля-ключа",
-					"type": "string"
-				},
-				"tooltipMarkdown": {
-					"title": "Маркдаун тултипа",
-					"type": "string"
-				},
-				"legend": {
-					"title": "Отображение легенды.",
-					"description": "По умолчанию для polar-графиков отображается всегда, а для 2d-графиков - когда количество полей значений больше одного.",
-					"type": "boolean"
-				}
-			},
-			"required": ["charts", "keyField", "title", "type"]
-		},
-		"Axes": {
-			"type": "object",
-			"title": "Параметры осей 2d-графика",
-			"properties": {
-				"orientation": {
-					"$ref": "#/definitions/Orientation"
-				},
-				"key": {
-					"title": "Параметры оси ключей",
-					"type": "object",
-					"properties": {
-						"position": {
-							"$ref": "#/definitions/AxisPosition",
-							"title": "Позиция оси ключей.",
-							"description": "По умолчанию равна \"end\", если график вертикальный и \"start\" - если график горизонтальный."
-						},
-						"visible": {
-							"title": "Отображение оси.",
-							"description": "\nПо умолчанию всегда отображается.",
-							"type": "boolean"
-						},
-						"gridLine": {
-							"title": "Отображение линий сетки оси.",
-							"description": "По умолчанию всегда скрывается.",
-							"type": "boolean"
-						}
-					}
-				},
-				"value": {
-					"title": "Параметры оси значений",
-					"type": "object",
-					"properties": {
-						"position": {
-							"$ref": "#/definitions/AxisPosition",
-							"title": "Позиция оси значений.",
-							"description": "По умолчанию равна \"start\", если график вертикальный и \"end\" - если график горизонтальный."
-						},
-						"visible": {
-							"title": "Отображение оси.",
-							"description": "По умолчанию не отображается только тогда, когда все графики имеют встроенные лейблы, показывающие значения.",
-							"type": "boolean"
-						},
-						"gridLine": {
-							"title": "Отображение линий сетки оси.\nПо умолчанию всегда отображается",
-							"type": "boolean"
-						}
-					}
-				}
-			}
-		},
-		"Orientation": {
-			"enum": ["horizontal", "vertical"],
-			"type": "string",
-			"title": "Ориентация графиков.",
-			"description": "При вертикальной ориентации ось ключей будет расположена сверху или снизу.\nПри горизонтальной ориентации ось ключей будет расположена слева или справа.\nПо умолчанию вертикальная."
-		},
-		"AxisPosition": {
-			"enum": ["end", "start"],
-			"type": "string"
-		},
-		"BarChart": {
-			"type": "object",
-			"properties": {
-				"type": {
-					"title": "Тип 2D-графика",
-					"type": "string",
-					"enum": ["bar"]
-				},
-				"data": {
-					"title": "Параметры данных, привязанных к графику",
-					"type": "object",
-					"properties": {
-						"valueFields": {
-							"title": "Наименования отображаемых полей-значений",
-							"type": "string"
-						}
-					},
-					"required": ["valueFields"]
-				},
-				"isSegmented": {
-					"title": "Отображение графика в сегментированном виде",
-					"type": "boolean"
-				}
-			},
-			"required": ["data", "type"]
-		},
-		"LineAreaChart": {
-			"type": "object",
-			"properties": {
-				"type": {
-					"title": "Тип 2D-графика",
-					"enum": ["area", "line"],
-					"type": "string"
-				},
-				"markers": {
-					"title": "Отображение маркеров.",
-					"description": "По умолчанию всегда скрыты.",
-					"type": "boolean"
-				},
-				"data": {
-					"title": "Параметры данных, привязанных к графику",
-					"type": "object",
-					"properties": {
-						"valueFields": {
-							"title": "Наименования отображаемых полей-значений",
-							"type": "string"
-						}
-					},
-					"required": ["valueFields"]
-				},
-				"isSegmented": {
-					"title": "Отображение графика в сегментированном виде",
-					"type": "boolean"
-				}
-			},
-			"required": ["data", "type"]
-		},
-
-		"PolarOptions": {
-			"type": "object",
-			"properties": {
-				"type": {
-					"title": "Тип исчисления графика",
-					"type": "string",
-					"enum": ["polar"]
-				},
-				"chart": {
-					"$ref": "#/definitions/PolarChart",
-					"title": "Параметры polar-графика"
-				},
-				"title": {
-					"title": "Заголовок графика",
-					"type": "string"
-				},
-				"keyField": {
-					"title": "Наименование поля-ключа",
-					"type": "string"
-				},
-				"tooltipMarkdown": {
-					"title": "Маркдаун тултипа",
-					"type": "string"
-				},
-				"legend": {
-					"title": "Отображение легенды.",
-					"description": "По умолчанию для polar-графиков отображается всегда, а для 2d-графиков - когда количество полей значений больше одного.",
-					"type": "boolean"
-				}
-			},
-			"required": ["chart", "keyField", "title", "type"]
-		},
-		"PolarChart": {
-			"type": "object",
-			"properties": {
-				"valueField": {
-					"title": "Наименование отображаемого поля-значения",
-					"type": "string"
-				}
-			},
-			"required": ["valueField"]
 		}
 	}
 }

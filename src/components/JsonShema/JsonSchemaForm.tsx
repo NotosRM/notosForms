@@ -15,9 +15,6 @@ export const JsonSchemaForm: React.FC<JsonSchemaFormProps> = (props) => {
 	let { schema, ...formProps } = props;
 	let currentPath = "#";
 
-	// TODO: Функции draw должны получать готовые схемы компонентов, а не шариться в схеме по пути
-	// Перех по пути осуществлять только для $ref
-
 	const schemaValidation = (values: any) => {
 		let errors: any = {};
 		let v = validate(values, schema);
