@@ -1,6 +1,7 @@
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const path = require("path");
 const APP_PATH = path.resolve(__dirname, "src");
 const MONACO_DIR = path.resolve(__dirname, "node_modules/monaco-editor");
@@ -9,7 +10,7 @@ const themes = ["dark", "pink", "coffee", "dark-blue", "light-blue", "modern-blu
 module.exports = {
 	entry: APP_PATH,
 	output: {
-		filename: "bundle.js",
+		filename: "[name].[contenthash].js",
 		path: path.resolve(__dirname, "dist")
 	},
 	resolve: {
@@ -65,6 +66,7 @@ module.exports = {
 		new ForkTsCheckerWebpackPlugin(),
 		new MonacoWebpackPlugin({
 			languages: ["json"]
-		})
+		}),
+		new CleanWebpackPlugin()
 	]
 };
