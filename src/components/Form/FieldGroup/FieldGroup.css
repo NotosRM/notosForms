@@ -8,7 +8,6 @@
 
 .header {
 	@apply px-4 mb-3;
-	@apply flex;
 	@apply text-xl;
 }
 .label {
@@ -16,6 +15,7 @@
 }
 .description {
 	display: block;
+	@apply text-base;
 }
 .labelCollapser {
 	@apply hover:underline cursor-pointer;

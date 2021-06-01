@@ -9,10 +9,4 @@ import { Playground } from "./playground/Playground";
 
 const schema = require("./examples/example.json");
 
-// render(<Playground schema={JSON.stringify(schema, null, 4)}></Playground>, document.getElementById("root"));
-render(
-	<div className={style.main}>
-		<App />
-	</div>,
-	document.getElementById("root")
-);
+render(<Playground schema={schema}></Playground>, document.getElementById("root"));

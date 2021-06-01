@@ -1,33 +1,40 @@
 {
+	"title": "A registration form",
+	"description": "description",
 	"type": "object",
-	"title": "Form title",
-	"properties": {
-		"Group": {
-			"type": "object",
-			"title": "Group title",
-			"anyOf": [
-				{
-					"type": "object",
-					"title": "Schema composition element 1",
-					"properties": {
-						"firstName": {
-							"type": "string",
-							"title": "First name"
-						}
-					}
+	"anyOf": [
+		{
+			"$ref": "#/definitions/group1"
+		},
+		{
+			"$ref": "#/definitions/group2"
+		}
+	],
+	"definitions": {
+		"group1": {
+			"properties": {
+				"firstName": {
+					"type": "string",
+					"title": "First name"
 				},
-				{
-					"type": "object",
-					"title": "Schema composition element 2",
-					"properties": {
-						"gender": {
-							"type": "string",
-							"title": "Gender",
-							"enum": ["", "male", "female"]
-						}
-					}
+				"lastName": {
+					"type": "string",
+					"title": "Last name"
 				}
-			]
+			}
+		},
+		"group2": {
+			"properties": {
+				"type": {
+					"title": "Тип исчисления графика",
+					"type": "string",
+					"enum": ["polar", "gant"]
+				},
+				"title": {
+					"titie": "Наименование графика",
+					"type": "string"
+				}
+			}
 		}
 	}
 }

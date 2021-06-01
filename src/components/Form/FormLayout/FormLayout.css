@@ -6,6 +6,7 @@
 .wrap {
 	@apply text-base;
 	@apply text-base-text;
+	font-family: "Roboto", sans-serif;
 }
 .title {
 	@apply text-2xl;

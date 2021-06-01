@@ -19,7 +19,7 @@ export const FormLayout: React.FC<FormLayoutProps> = (props) => {
 					{title || description ? (
 						<div className={styles.header}>
 							{title ? <span className={styles.title}>{title}</span> : null}
-							{description ? <i className={styles.description}>{description}</i> : null}
+							{description ? <span className={styles.description}>{description}</span> : null}
 						</div>
 					) : null}
 					{children ? <div className={styles.content}>{children}</div> : null}
