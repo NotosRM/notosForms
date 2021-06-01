@@ -26,13 +26,13 @@
 		"group2": {
 			"properties": {
 				"type": {
-					"title": "Тип исчисления графика",
+					"title": "Chart type",
 					"type": "string",
 					"enum": ["polar", "gant"]
 				},
 				"title": {
-					"titie": "Наименование графика",
-					"type": "string"
+					"type": "boolean",
+					"title": "Is segmented"
 				}
 			}
 		}
