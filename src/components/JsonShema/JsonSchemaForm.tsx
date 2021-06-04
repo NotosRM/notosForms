@@ -4,15 +4,24 @@ import { FormSpy } from "react-final-form";
 import { FieldGroup } from "../Form/FieldGroup/FieldGroup";
 import { FieldLayout, FieldLayoutProps } from "../Form/FieldLayout/FieldLayout";
 import { FormLayout, FormLayoutProps } from "../Form/FormLayout/FormLayout";
+import styles from "./JsonSchemaForm.css";
 
 interface JsonSchemaFormProps<FormValues = Record<string, any>, InitialFormValues = Partial<FormValues>>
 	extends FormLayoutProps<FormValues, InitialFormValues> {
 	schema: JSONSchema4;
 }
+interface CompositionProps {
+	type: "anyOf" | "oneOf" | "allOf";
+	components: JSONSchema4[];
+}
+
+const maxBranches = 3;
 
 export const JsonSchemaForm: React.FC<JsonSchemaFormProps> = (props) => {
-	const maxBranches = 3;
 	let { schema, ...formProps } = props;
+	//TODO: передавать в функции/функциональные компоненты их путь, а не хранить его в корне, тогда все компоненты будут независмыми?
+	// Возникнет трудность с $ref
+
 	let currentPath = "#";
 
 	const schemaValidation = (values: any) => {
@@ -39,132 +48,99 @@ export const JsonSchemaForm: React.FC<JsonSchemaFormProps> = (props) => {
 		return errors;
 	};
 
-	const drawAnyOf = (c: JSONSchema4[]) => {
-		let anyOfPath = currentPath + `/anyOf`;
-		currentPath = anyOfPath;
-		let b = true;
-		let bindingComponent: { key: string; props: any; elements: string[][] } = {
-			key: "",
-			props: {},
-			elements: []
-		};
-		let components = c.map((s: JSONSchema4, index: number) => {
-			let counter = 0;
-			let { $ref, ...props } = s;
-			while (s.$ref && counter < maxBranches) {
-				counter++;
-				s = goToSchema(schema, s.$ref);
-				let { $ref, ...p } = s;
-				props = Object.assign(p, props);
-			}
-			let { properties, ...rest } = props;
-			if (properties) {
-				let propKeys = Object.keys(properties);
-				let currentKey = propKeys[0];
-				if (propKeys.length == 0) {
-					b = false;
-				}
-				let { enum: t, ...component } = properties[propKeys[0]];
-				if (bindingComponent.key == "") {
-					bindingComponent.key = currentKey;
-				}
-				if (bindingComponent.key != currentKey) b = false;
-				if (t) {
-					bindingComponent.props = Object.assign(component, bindingComponent.props);
-					bindingComponent.elements[index] = t as string[];
-				} else b = false;
-			} else b = false;
-			return props;
-		});
-		let [componentId, setId] = useState(0);
-		const LinkedGroup = (lgProps: any) => {
-			let { component, ignorProp } = lgProps;
-			return (
-				<FieldGroup label={component.title} description={component.description}>
-					{drawProperties(component.properties, ignorProp)}
-					{component.anyOf ? drawAnyOf(component.anyOf) : null}
-				</FieldGroup>
-			);
-		};
-		let WRONGCODE = currentPath;
-		if (b) {
-			let bcCode = makeCode(`${anyOfPath}/${bindingComponent.key}`);
-			return (
-				<React.Fragment>
-					<FieldLayout
-						code={bcCode}
-						control="select"
-						elements={bindingComponent.elements.reduce((a, b) => a.concat(b))}
-						label={bindingComponent.props.title}
-						{...bindingComponent.props}
-					></FieldLayout>
-					<FormSpy
-						subscription={{ values: true }}
-						onChange={({ values }) => {
-							if (Object.keys(values).length > 0) {
-								let bcValue = bcCode.split(".").reduce(function (obj, key) {
-									if (obj?.hasOwnProperty(key)) return obj[key];
-								}, Object.assign(values));
-								bindingComponent.elements.forEach((el: string[], index) => {
-									let i = el.findIndex((value) => value == bcValue);
-									if (i != -1 && componentId != index) setId(index);
-								});
-							}
-						}}
-					/>
-					<LinkedGroup component={components[componentId]} ignorProp={bindingComponent?.key}></LinkedGroup>
-				</React.Fragment>
-			);
-		} else {
-			let [componentId, setId] = useState(0);
-			let elements = components.map((component, index) => {
-				return component?.title || `Option ${index}`;
-			});
-			// TODO РЕШИТЬ ЧТО ДЕЛАТЬ с ним
-			return (
-				<React.Fragment>
-					<FieldLayout
-						code={WRONGCODE} // TODO РЕШИТЬ ЧТО ДЕЛАТЬ с ним
-						control="select"
-						elements={elements}
-						label={bindingComponent.props.title}
-					></FieldLayout>
-					<FormSpy
-						subscription={{ values: true }}
-						onChange={({ values }) => {
-							if (Object.keys(values).length > 0) {
-								let bcValue = WRONGCODE.split(".").reduce(function (obj, key) {
-									if (obj?.hasOwnProperty(key)) return obj[key];
-								}, Object.assign(values));
-								let index = elements.findIndex((value) => value == bcValue);
-								if (index > -1 && componentId != index) setId(index);
-							}
-						}}
-					/>
-					<LinkedGroup component={components[componentId]}></LinkedGroup>
-				</React.Fragment>
-			);
-		}
-	};
-	const createComponent = (component: JSONSchema4) => {
-		let currentCode = makeCode(currentPath);
+	const pullRef = (componentSchema: JSONSchema4) => {
 		let counter = 0;
-		let { $ref, ...props } = component;
-		while (component.$ref && counter < maxBranches) {
+		let { $ref, ...props } = componentSchema;
+		while (componentSchema.$ref && counter < maxBranches) {
 			counter++;
-			component = goToSchema(schema, component.$ref);
-			let { $ref, ...p } = component;
+			componentSchema = goToSchema(schema, componentSchema.$ref);
+			let { $ref, ...p } = componentSchema;
 			props = Object.assign(p, props);
 		}
-		let { type, title, description, options, enum: t, anyOf, required, properties, ...rest } = props;
+		return props;
+	};
+
+	const drawCompositions = (s: JSONSchema4) => {
+		const compositionsRoot = currentPath;
+
+		const Composition: React.FC<CompositionProps> = (props) => {
+			let { type, components } = props;
+			currentPath = compositionsRoot + `/${type}`;
+			//TODO: Компоненты, которые не июеют полей для отрисовки не должны входить в список
+			let elements: string[] = [];
+			components = components.map((component: JSONSchema4, index: number) => {
+				let { title, ...rest } = pullRef(component);
+				elements.push(title || `Option ${index}`);
+				return rest;
+			});
+			if (type == "oneOf" || type == "anyOf") {
+				let [Id, setId] = useState(0);
+				return (
+					<FieldGroup>
+						<div className={styles.header}>
+							<select
+								className={styles.control + " " + styles.select}
+								id={`schemaSelector-${makeCode(currentPath)}`}
+								onChange={(e) => {
+									let index = elements.findIndex((value) => value == e.target.value);
+									setId(index);
+								}}
+								value={elements[Id]}
+							>
+								{elements.map((element, index) => (
+									<option key={element + index} value={element}>
+										{element}
+									</option>
+								))}
+							</select>
+							{
+								//TODO Откуда брать заголовок для группы
+							}
+							<div className={styles.title}></div>
+						</div>
+						<div className={styles.container}>{<Component component={components[Id]} />}</div>
+					</FieldGroup>
+				);
+			}
+			if (type == "allOf") return <React.Fragment>{null}</React.Fragment>;
+			return null;
+		};
+
+		return (
+			<React.Fragment>
+				{s.oneOf ? <Composition type="oneOf" components={s.oneOf}></Composition> : null}
+				{s.anyOf ? <Composition type="anyOf" components={s.anyOf}></Composition> : null}
+				{s.allOf ? <Composition type="allOf" components={s.allOf}></Composition> : null}
+			</React.Fragment>
+		);
+	};
+	const Component: React.FC<{ component: JSONSchema4 }> = (props) => {
+		let currentCode = makeCode(currentPath);
+		let component = pullRef(props.component);
+		let {
+			type,
+			title,
+			description,
+			options,
+			enum: t,
+			anyOf,
+			oneOf,
+			allOf,
+			required,
+			properties,
+			...rest
+		} = component;
 		let r = required ? true : false;
-		if (type == "object" || anyOf || properties) {
+		if (type == "object" || properties) {
 			return (
 				<FieldGroup key={currentCode} code={currentCode} label={title} description={description} {...rest}>
 					{properties ? drawProperties(properties) : null}
-					{anyOf ? drawAnyOf(anyOf) : null}
+					{anyOf || oneOf || allOf ? drawCompositions(component) : null}
 				</FieldGroup>
 			);
+		}
+		if (anyOf || oneOf || allOf) {
+			return drawCompositions(component);
 		}
 		if (t)
 			return (
@@ -220,26 +196,26 @@ export const JsonSchemaForm: React.FC<JsonSchemaFormProps> = (props) => {
 	};
 	let drawProperties = (properties: { [k: string]: JSONSchema4 }, ignorProp?: string) => {
 		let propertiesPath = currentPath + `/properties`;
-		return Object.keys(properties || []).map((key) => {
+		return Object.keys(properties || []).map((key, index) => {
 			if (ignorProp && ignorProp == key) return null;
 			currentPath = propertiesPath + `/${key}`;
-			return <React.Fragment key={key}>{createComponent(properties[key])}</React.Fragment>;
+			return <Component key={key + index} component={properties[key]} />;
 		});
 	};
 	return (
 		<FormLayout title={schema.title} description={schema.description} validate={schemaValidation} {...formProps}>
 			<React.Fragment>
-				{schema?.properties ? drawProperties(schema.properties) : null}
-				{schema?.anyOf ? drawAnyOf(schema.anyOf) : null}
+				{schema?.properties && drawProperties(schema.properties)}
+				{drawCompositions(schema)}
 			</React.Fragment>
 		</FormLayout>
 	);
 };
 
-const goToSchema = (s: JSONSchema4, path: string) => {
+const goToSchema = (s: JSONSchema4, path: string, splitter: string = "/") => {
 	return path
 		.slice(2)
-		.split("/")
+		.split(splitter)
 		.reduce(function (obj, key) {
 			return obj[key];
 		}, s);
