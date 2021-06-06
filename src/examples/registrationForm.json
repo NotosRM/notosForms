@@ -1,6 +1,6 @@
 {
 	"title": "A registration form",
-	"description": "описание",
+	"description": "description",
 	"type": "object",
 	"properties": {
 		"firstName": {
@@ -15,30 +15,34 @@
 			"minLength": 3,
 			"maxLength": 25
 		},
-		"Age": {
+		"age": {
 			"type": "number",
 			"title": "Age"
 		},
-		"phoneNumber": {
-			"type": "string",
-			"pattern": "[0-9]{11}",
-			"options": {
-				"placeholder": "enter u phone number"
-			},
-			"title": "phoneNumber",
-			"minLength": 11,
-			"maxLength": 11
-		},
-		"Group": {
+		"contactInfromation": {
 			"type": "object",
-			"title": "GroupName",
 			"properties": {
-				"gender": {
+				"email": {
 					"type": "string",
-					"title": "Gender",
-					"enum": ["", "male", "female"]
+					"title": "Email",
+					"description": "for example: leeroy.jenkins@example.com"
+				},
+				"phoneNumber": {
+					"type": "string",
+					"title": "phoneNumber",
+					"minLength": 11,
+					"maxLength": 11
 				}
 			}
+		},
+		"gender": {
+			"type": "string",
+			"title": "Gender",
+			"enum": ["", "male", "female"]
+		},
+		"subcribe": {
+			"type": "boolean",
+			"title": "Subscribe to newsletter"
 		}
 	}
 }
