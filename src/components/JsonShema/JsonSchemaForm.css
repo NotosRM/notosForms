@@ -10,6 +10,7 @@
 	@apply w-full;
 	@apply inline-block;
 	@apply text-base-primary;
+	@apply text-base;
 }
 .select {
 	@apply w-full;

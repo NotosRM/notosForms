@@ -1,8 +1,7 @@
 .wrap {
-	@apply pt-3 pb-1 mb-3;
-	@apply bg-gray-100;
+	@apply mb-3;
 	break-inside: avoid;
-	@apply dark:bg-gray-700 border-gray-900;
+	@apply border-gray-900;
 	min-height: 28px;
 }
 
