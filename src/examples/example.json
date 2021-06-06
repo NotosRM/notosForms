@@ -1,118 +1,40 @@
 {
-	"title": "Charts",
+	"title": "Form example",
+	"description": "description",
 	"type": "object",
-	"properties": {
-		"ChartControlOptions": {
-			"anyOf": [
-				{
-					"type": "object",
-					"title": "Двумерный график",
-					"properties": {
-						"type": {
-							"title": "Тип исчисления графика",
-							"type": "string",
-							"enum": ["2d"]
-						},
-						"charts": {
-							"title": "Параметры 2d-графиков",
-							"type": "object",
-							"anyOf": [
-								{
-									"$ref": "#/definitions/BarChart"
-								},
-								{
-									"$ref": "#/definitions/LineAreaChart"
-								}
-							]
-						}
-					}
-				},
-				{
-					"type": "object",
-					"title": "Полярный график",
-					"properties": {
-						"type": {
-							"title": "Тип исчисления графика",
-							"type": "string",
-							"enum": ["polar"]
-						},
-						"chart": {
-							"$ref": "#/definitions/PolarChart",
-							"title": "Параметры polar-графика"
-						}
-					}
-				}
-			]
+	"anyOf": [
+		{
+			"$ref": "#/definitions/group1"
+		},
+		{
+			"$ref": "#/definitions/group2"
 		}
-	},
+	],
 	"definitions": {
-		"BarChart": {
-			"type": "object",
-			"title": "Столбчатая диаграмма",
+		"group1": {
 			"properties": {
-				"type": {
-					"title": "Тип 2D-графика",
+				"firstName": {
 					"type": "string",
-					"enum": ["bar"]
+					"title": "First name"
 				},
-				"data": {
-					"title": "Параметры данных, привязанных к графику",
-					"type": "object",
-					"properties": {
-						"valueFields": {
-							"title": "Наименования отображаемых полей-значений",
-							"type": "string"
-						}
-					},
-					"required": ["valueFields"]
-				},
-				"isSegmented": {
-					"title": "Отображение графика в сегментированном виде",
-					"type": "boolean"
+				"lastName": {
+					"type": "string",
+					"title": "Last name"
 				}
-			},
-			"required": ["data", "type"]
+			}
 		},
-		"LineAreaChart": {
-			"type": "object",
-			"title": "Линейная диаграмма",
+		"group2": {
 			"properties": {
 				"type": {
-					"enum": ["area", "line"],
-					"type": "string"
+					"title": "Chart type",
+					"type": "string",
+					"enum": ["polar", "gant"]
 				},
-				"markers": {
-					"title": "Отображение маркеров.",
-					"description": "По умолчанию всегда скрыты.",
-					"type": "boolean"
-				},
-				"data": {
-					"title": "Параметры данных, привязанных к графику",
-					"type": "object",
-					"properties": {
-						"valueFields": {
-							"title": "Наименования отображаемых полей-значений",
-							"type": "string"
-						}
-					},
-					"required": ["valueFields"]
-				},
-				"isSegmented": {
-					"title": "Отображение графика в сегментированном виде",
-					"type": "boolean"
+				"title": {
+					"type": "boolean",
+					"title": "Is segmented"
 				}
-			},
-			"required": ["data", "type"]
-		},
-		"PolarChart": {
-			"type": "object",
-			"properties": {
-				"valueField": {
-					"title": "Наименование отображаемого поля-значения",
-					"type": "string"
-				}
-			},
-			"required": ["valueField"]
+			}
 		}
 	}
 }

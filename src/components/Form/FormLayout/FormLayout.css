@@ -48,13 +48,14 @@
 	margin-left: 16px;
 }
 .btn {
+	@apply mb-12;
 	color: #fff;
 	background-color: #0d6efd;
 	border-color: #0d6efd;
 }
 .btn:hover {
 	color: #fff;
-	background-color: ;
+	background-color: #0a58ca;
 	border-color: #0a58ca;
 }
 
