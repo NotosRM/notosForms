@@ -1,5 +1,5 @@
 {
-	"title": "A registration form",
+	"title": "Form example",
 	"description": "description",
 	"type": "object",
 	"anyOf": [

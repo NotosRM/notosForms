@@ -1,0 +1,23 @@
+.header {
+	@apply px-4 mb-3;
+}
+.control {
+	@apply border-solid border-1 border-gray-300;
+	@apply py-1 px-3;
+	transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+	@apply outline-0;
+	@apply box-border;
+	@apply w-full;
+	@apply inline-block;
+	@apply text-base-primary;
+	@apply text-base;
+}
+.select {
+	@apply w-full;
+	background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+	background-repeat: no-repeat;
+	background-position: right 0.5rem center;
+	background-size: 16px 12px;
+	@apply pr-8;
+	@apply appearance-none;
+}

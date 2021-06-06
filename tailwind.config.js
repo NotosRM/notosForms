@@ -18,7 +18,7 @@ module.exports = {
 				}
 			},
 			fontSize: {
-				base: "12px"
+				base: ["12px", "16px"]
 			},
 			boxShadow: {
 				"mdt-blue": "inset 0 1px 1px rgb(0 0 0 / 8%), 0 0 8px rgb(102 175 233 / 60%);"
