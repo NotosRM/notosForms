@@ -106,7 +106,7 @@ export const Playground: React.FC<PlaygroundProps> = (props) => {
 					}}
 					id={"#ButtonConverterJsonSchemaToForm"}
 				>
-					Covert
+					Convert
 				</button>
 			</div>
 			<div className={style.container}>
