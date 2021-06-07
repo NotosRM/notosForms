@@ -76,6 +76,8 @@ export const Playground: React.FC<PlaygroundProps> = (props) => {
 				<button
 					className={style.btn}
 					onClick={() => {
+						console.clear();
+						console.log("draw regForm");
 						setTimeout(() => {
 							setSchema(regForm);
 						}, 1000);
@@ -86,6 +88,8 @@ export const Playground: React.FC<PlaygroundProps> = (props) => {
 				<button
 					className={style.btn}
 					onClick={() => {
+						console.clear();
+						console.log("draw Charts");
 						setTimeout(() => {
 							setSchema({}); // TODO: fix it
 							setSchema(charts);
@@ -97,6 +101,7 @@ export const Playground: React.FC<PlaygroundProps> = (props) => {
 				<button
 					className={style.btn + " " + style.hide}
 					onClick={() => {
+						console.clear();
 						setSchema(s);
 					}}
 					id={"#ButtonConverterJsonSchemaToForm"}

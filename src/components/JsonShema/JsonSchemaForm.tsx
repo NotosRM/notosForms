@@ -63,8 +63,7 @@ export const JsonSchemaForm: React.FC<JsonSchemaFormProps> = (props) => {
 	const drawCompositions = (s: JSONSchema4) => {
 		const compositionsRoot = currentPath;
 
-		const Composition: React.FC<CompositionProps> = (props) => {
-			let { type, components } = props;
+		const Composition = (type: any, components: any) => {
 			currentPath = compositionsRoot + `/${type}`;
 			//TODO: Компоненты, которые не июеют полей для отрисовки не должны входить в список
 			let elements: string[] = [];
@@ -98,7 +97,7 @@ export const JsonSchemaForm: React.FC<JsonSchemaFormProps> = (props) => {
 							}
 							<div className={styles.title}></div>
 						</div>
-						<div className={styles.container}>{<Component component={components[Id]} />}</div>
+						<div className={styles.container}>{Component(components[Id])}</div>
 					</FieldGroup>
 				);
 			}
@@ -108,28 +107,17 @@ export const JsonSchemaForm: React.FC<JsonSchemaFormProps> = (props) => {
 
 		return (
 			<React.Fragment>
-				{s.oneOf ? <Composition type="oneOf" components={s.oneOf}></Composition> : null}
-				{s.anyOf ? <Composition type="anyOf" components={s.anyOf}></Composition> : null}
-				{s.allOf ? <Composition type="allOf" components={s.allOf}></Composition> : null}
+				{s.oneOf ? Composition("oneOf", s.oneOf) : null}
+				{s.anyOf ? Composition("anyOf", s.anyOf) : null}
+				{s.allOf ? Composition("allOf", s.allOf) : null}
 			</React.Fragment>
 		);
 	};
-	const Component: React.FC<{ component: JSONSchema4 }> = (props) => {
+	const Component = (c: JSONSchema4) => {
+		let { ...roma } = c;
 		let currentCode = makeCode(currentPath);
-		let component = pullRef(props.component);
-		let {
-			type,
-			title,
-			description,
-			options,
-			enum: t,
-			anyOf,
-			oneOf,
-			allOf,
-			required,
-			properties,
-			...rest
-		} = component;
+		let component = pullRef(roma);
+		let { type, title, description, enum: t, anyOf, oneOf, allOf, required, properties, ...rest } = component;
 		let r = required ? true : false;
 		if (type == "object" || properties) {
 			return (
@@ -196,10 +184,10 @@ export const JsonSchemaForm: React.FC<JsonSchemaFormProps> = (props) => {
 	};
 	let drawProperties = (properties: { [k: string]: JSONSchema4 }, ignorProp?: string) => {
 		let propertiesPath = currentPath + `/properties`;
-		return Object.keys(properties || []).map((key, index) => {
+		return Object.keys(properties || []).map((key) => {
 			if (ignorProp && ignorProp == key) return null;
 			currentPath = propertiesPath + `/${key}`;
-			return <Component key={key + index} component={properties[key]} />;
+			return Component(properties[key]);
 		});
 	};
 	return (

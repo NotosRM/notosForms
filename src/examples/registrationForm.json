@@ -1,6 +1,6 @@
 {
-	"title": "A registration form",
-	"description": "описание",
+	"title": "Registration form",
+	"description": "simple registration form",
 	"type": "object",
 	"properties": {
 		"firstName": {
@@ -16,12 +16,14 @@
 			"maxLength": 25
 		},
 		"Age": {
-			"type": "number",
-			"title": "Age"
+			"type": "string",
+			"title": "Age",
+			"fieldProps": {
+				"type": "number"
+			}
 		},
 		"phoneNumber": {
 			"type": "string",
-			"pattern": "[0-9]{11}",
 			"options": {
 				"placeholder": "enter u phone number"
 			},
@@ -29,16 +31,10 @@
 			"minLength": 11,
 			"maxLength": 11
 		},
-		"Group": {
-			"type": "object",
-			"title": "GroupName",
-			"properties": {
-				"gender": {
-					"type": "string",
-					"title": "Gender",
-					"enum": ["", "male", "female"]
-				}
-			}
+		"gender": {
+			"type": "string",
+			"title": "Gender",
+			"enum": ["", "male", "female"]
 		}
 	}
 }
