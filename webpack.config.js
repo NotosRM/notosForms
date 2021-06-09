@@ -5,6 +5,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const path = require("path");
 const APP_PATH = path.resolve(__dirname, "src");
 const MONACO_DIR = path.resolve(__dirname, "node_modules/monaco-editor");
+// const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 const themes = ["dark", "pink", "coffee", "dark-blue", "light-blue", "modern-blue"];
 module.exports = {
@@ -68,5 +69,6 @@ module.exports = {
 			languages: ["json"]
 		}),
 		new CleanWebpackPlugin()
+		// new BundleAnalyzerPlugin()
 	]
 };
