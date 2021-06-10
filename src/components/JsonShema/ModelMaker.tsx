@@ -1,17 +1,18 @@
-import { JSONSchema4, validate, ValidationError } from "json-schema";
-import { runtime } from "webpack";
-import { ICompositions } from "../../FormModel/FormModel";
+import { JSONSchema4 } from "json-schema";
+import { FormComponent, FormModel } from "../../FormModel/FormModel";
 
 const maxBranches = 3;
 
-export class ModelMaker {
-	counter: number = 0;
+export class JSONSchemaModelMaker {
 	//TODO: типизировать все объекты
 	constructor(schema: JSONSchema4) {
 		this.schema = schema;
+		this.model = {
+			onSubmit: (...args) => console.log(args)
+		};
 	}
 	schema: JSONSchema4;
-	model: any = {};
+	model: FormModel;
 	private _currentPath: string = "#";
 	get currentPath(): string {
 		return this._currentPath;
@@ -22,9 +23,8 @@ export class ModelMaker {
 	}
 
 	static makeModel = (schema: JSONSchema4) => {
-		const mm: ModelMaker = new ModelMaker(schema);
+		const mm: JSONSchemaModelMaker = new JSONSchemaModelMaker(schema);
 		mm.prepareModel();
-		console.log(mm.counter);
 
 		return mm.getModel();
 	};
@@ -34,149 +34,156 @@ export class ModelMaker {
 		let formProps = this.getFormProps(this.schema);
 		Object.assign(this.model, formProps);
 		if (this.schema.properties) {
-			let properties: { [k: string]: JSONSchema4 } = this.prepareProperties(this.schema.properties);
-			Object.defineProperty(this.model, "properties", {
-				value: properties,
+			let components: FormComponent[] = this.prepareComponents(this.schema.properties);
+			Object.defineProperty(this.model, "components", {
+				value: components,
 				configurable: true,
 				enumerable: true,
 				writable: true
 			});
 		}
-		if (this.schema.anyOf || this.schema.oneOf || this.schema.allOf) {
-			let compositions: ICompositions = this.prepareSchemaCompositions(this.schema);
-			Object.defineProperty(this.model, "compositions", {
-				value: compositions,
-				configurable: true,
-				enumerable: true,
-				writable: true
-			});
-		}
+		// if (this.schema.anyOf || this.schema.oneOf || this.schema.allOf) {
+		// 	let compositions: ICompositions = this.prepareCompositions(this.schema);
+		// 	Object.defineProperty(this.model, "compositions", {
+		// 		value: compositions,
+		// 		configurable: true,
+		// 		enumerable: true,
+		// 		writable: true
+		// 	});
+		// }
 	};
 	getFormProps = (schema: JSONSchema4) => {
 		let { title, description, ...rest } = schema;
 		return { title, description };
 	};
-	prepareProperties = (properties: { [k: string]: JSONSchema4 }) => {
+	prepareComponents = (properties: { [k: string]: JSONSchema4 }) => {
 		let propertiesPath = this.currentPath + `/properties`;
-		let result = {};
-		Object.keys(properties || []).map((key) => {
+
+		return Object.keys(properties || []).map((key) => {
 			this.currentPath = propertiesPath + `/${key}`;
-			return Object.defineProperty(result, key, { value: this.prepareProp(properties[key]), enumerable: true });
+			return this.prepareComponent(properties[key]);
 		});
-		return result;
 	};
 
-	prepareProp = (prop: JSONSchema4) => {
+	prepareComponent: (props: JSONSchema4) => FormComponent = (props) => {
 		let currentCode = makeCode(this.currentPath);
-		this.counter++;
+		props = pullRef(props, this.schema);
 
-		prop = pullRef(prop, this.schema);
-
-		let { type, title, description, options, enum: t, anyOf, oneOf, allOf, required, properties, ...rest } = prop;
-		let componentType = "object";
-		if (type == "object" || properties) {
-			if (properties) properties = this.prepareProperties(properties);
-			let compositions;
-			if (anyOf || oneOf || allOf) {
-				compositions = this.prepareSchemaCompositions(prop);
-			}
+		if (props.type == "object" || props.properties) {
+			let { type, title: label, description, properties, controlOptions, ...rest } = props;
+			let components: FormComponent[] = [];
+			if (properties) components = this.prepareComponents(properties);
+			// let compositions;
+			// if (anyOf || oneOf || allOf) {
+			// 	compositions = this.prepareCompositions(prop);
+			// }
 			return {
-				componentType: "object",
+				type: "fieldGroup",
 				key: currentCode,
 				code: currentCode,
-				label: title,
+				label,
 				description,
-				properties,
-				compositions,
-				...rest
+				components,
+				...controlOptions
+				// compositions,
 			};
 		}
-		if (anyOf || oneOf || allOf) {
-			let compositions = this.prepareSchemaCompositions(prop);
+		// if (anyOf || oneOf || allOf) {
+		// 	let compositions = this.prepareCompositions(prop);
+		// 	return {
+		// 		type: "object",
+		// 		key: currentCode,
+		// 		code: currentCode,
+		// 		label: title,
+		// 		description,
+		// 		compositions,
+		// 		...rest
+		// 	};
+		// }
+		if (props.enum) {
+			let { type, title: label, description, enum: elements, controlOptions, ...rest } = props;
 			return {
-				componentType: "object",
+				type: "field",
 				key: currentCode,
 				code: currentCode,
-				label: title,
+				label,
 				description,
-				compositions,
-				...rest
-			};
-		}
-		componentType = "field";
-		if (t)
-			return {
-				componentType,
-				key: currentCode,
-				code: currentCode,
-				label: title,
-				description,
-				options,
-				elements: t.map((el: any) => {
-					return el != null ? el.toString() : "";
-				}),
+				elements: elements.map((el: any) => (el != null ? el.toString() : "")),
 				control: "select",
-				...rest
-			};
-		if (prop.type == "string") {
-			return {
-				componentType,
-				key: currentCode,
-				code: currentCode,
-				label: title,
-				description,
-				options,
-				...rest
+				...controlOptions
 			};
 		}
-		if (prop.type == "number" || prop.type == "integer") {
+		if (props.type == "string") {
+			let { type, title: label, description, controlOptions, ...rest } = props;
 			return {
-				componentType,
+				type: "field",
 				key: currentCode,
 				code: currentCode,
-				label: title,
+				label,
 				description,
-				options,
+				...controlOptions
+			};
+		}
+		if (props.type == "number" || props.type == "integer") {
+			let { type, title: label, description, enum: elements, controlOptions, ...rest } = props;
+			return {
+				type: "field",
+				key: currentCode,
+				code: currentCode,
+				label,
+				description,
 				fieldProps: { name: currentCode, type: "number" },
-				...rest
+				...controlOptions
 			};
 		}
-		if (prop.type == "boolean") {
+		if (props.type == "boolean") {
+			let { type, title: label, description, enum: elements, controlOptions, ...rest } = props;
 			return {
-				componentType,
+				type: "field",
 				key: currentCode,
 				code: currentCode,
-				label: title,
+				label,
 				description,
-				options,
 				control: "checkbox",
-				...rest
+				...controlOptions
 			};
 		}
 		return {};
 	};
-	prepareSchemaCompositions = (props: JSONSchema4) => {
-		let { anyOf, oneOf, allOf } = props;
-		const compositionsRoot = this.currentPath;
-		let compositions: ICompositions = {};
-		if (anyOf) {
-			this.currentPath = compositionsRoot + `/anyOf`;
-			let selector: {
-				elements: string[];
-				code: string;
-			} = { elements: [], code: this.currentPath };
-			anyOf = anyOf.map((component: JSONSchema4, index: number) => {
-				let { title, ...rest } = pullRef(component, this.schema);
-				selector.elements.push(title || `Option ${index}`);
-				return this.prepareProp(rest);
-			});
-			compositions.anyOf = { components: anyOf, selector };
-			//TODO: добавить проверку для selector'а и для anyOf
-		}
-
-		return compositions;
-	};
 }
+// 	prepareCompositions: (props: JSONSchema4) => ICompositions = (props) => {
+// 		const compositionsRoot = this.currentPath;
+// 		let compositions: ICompositions = {};
+// 		if (props?.oneOf) {
+// 			this.currentPath = compositionsRoot + `/oneOf`;
+// 			let selector: {
+// 				elements: string[];
+// 				code: string;
+// 			} = { elements: [], code: this.currentPath };
+// 			let oneOf = props?.oneOf.map((component: JSONSchema4, index: number) => {
+// 				let { title, ...rest } = pullRef(component, this.schema);
+// 				selector.elements.push(title || `Option ${index}`);
+// 				return this.prepareComponent(rest);
+// 			});
+// 			compositions.anyOf = { components: oneOf, componentsSwitcher: selector };
+// 		}
+// 		if (props?.anyOf) {
+// 			this.currentPath = compositionsRoot + `/anyOf`;
+// 			let selector: {
+// 				elements: string[];
+// 				code: string;
+// 			} = { elements: [], code: this.currentPath };
+// 			let anyOf = props?.anyOf.map((component: JSONSchema4, index: number) => {
+// 				let { title, ...rest } = pullRef(component, this.schema);
+// 				selector.elements.push(title || `Option ${index}`);
+// 				return this.prepareComponent(rest);
+// 			});
+// 			compositions.anyOf = { components: anyOf, componentsSwitcher: selector };
+// 		}
+// 		//TODO: реализовать allOf
+// 		return compositions;
+// 	};
+// }
 
 const goToSchema = (s: JSONSchema4, path: string, splitter: string = "/") => {
 	return path

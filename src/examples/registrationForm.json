@@ -20,7 +20,7 @@
 			"title": "Age"
 		},
 		"phoneNumber": {
-			"type": "number",
+			"type": "string",
 			"options": {
 				"placeholder": "enter u phone number"
 			},

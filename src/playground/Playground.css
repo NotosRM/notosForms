@@ -1,6 +1,8 @@
 .playground {
 	display: flex;
 	flex-direction: column;
+	@apply bg-white;
+	@apply p-2;
 }
 .header {
 	@apply border-gray-500;

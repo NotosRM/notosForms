@@ -4,16 +4,22 @@ import { JSONSchema4 } from "json-schema";
 import { JsonSchemaForm } from "../components/JsonShema/JsonSchemaForm";
 import style from "./Playground.css";
 
+const regForm = require("../examples/registrationForm.json");
+const charts = require("../examples/chartsJSONSchema.json");
+//TODO: вынести все custom'ные свойства в contorlOptions
 interface PlaygroundProps {
 	schema: JSONSchema4;
 }
 export const Playground: React.FC<PlaygroundProps> = (props) => {
-	const regForm = require("../examples/registrationForm.json");
-	const charts = require("../examples/chartsJSONSchema.json");
 	let { schema } = props;
 	let [JSONSchema, setSchema] = useState(schema);
+	// currentSchema
+	// monacoSchema
 	let s = JSONSchema;
+	// избавиться от
 	let timer: NodeJS.Timeout;
+
+	//TODO: перенсти в отдельный файл
 	class Editor extends React.Component<PlaygroundProps, any> {
 		constructor(props: PlaygroundProps) {
 			super(props);
@@ -29,6 +35,7 @@ export const Playground: React.FC<PlaygroundProps> = (props) => {
 		}
 		onChange(newValue: any, editor: any) {
 			clearTimeout(timer);
+			//TODO: сделать через state: isEditorValid
 			let btn = document.getElementById("#ButtonConverterJsonSchemaToForm");
 			btn?.classList.add(style.hide);
 			let e = editor;
@@ -87,7 +94,6 @@ export const Playground: React.FC<PlaygroundProps> = (props) => {
 					className={style.btn}
 					onClick={() => {
 						setTimeout(() => {
-							setSchema({}); // TODO: fix it
 							setSchema(charts);
 						}, 1000);
 					}}
@@ -109,17 +115,41 @@ export const Playground: React.FC<PlaygroundProps> = (props) => {
 					<Editor schema={JSONSchema}></Editor>
 				</div>
 				<div className={style.formWrapper} style={{ height: `${window.innerHeight * 0.8 - 40}px` }}>
-					<div className={style.formContainer}>
-						{
-							<JsonSchemaForm
-								schema={JSONSchema}
-								onSubmit={(...args) => console.log(args)}
-							></JsonSchemaForm>
-						}
-					</div>
+					<ErrorBoundary>
+						<div className={style.formContainer}>
+							{
+								<JsonSchemaForm
+									schema={JSONSchema}
+									onSubmit={(...args) => console.log(args)}
+								></JsonSchemaForm>
+							}
+						</div>
+					</ErrorBoundary>
 				</div>
 				<div className={style.chartsWrapper}></div>
 			</div>
 		</div>
 	);
 };
+
+//TODO: в отдельный файл
+class ErrorBoundary extends React.Component<any, any> {
+	constructor(props: any) {
+		super(props);
+		this.state = { hasError: false };
+	}
+
+	static getDerivedStateFromError() {
+		// Обновить состояние с тем, чтобы следующий рендер показал запасной UI.
+		return { hasError: true };
+	}
+
+	render() {
+		if (this.state.hasError) {
+			// Можно отрендерить запасной UI произвольного вида
+			return <h1>Что-то пошло не так.</h1>;
+		}
+
+		return this.props.children;
+	}
+}
