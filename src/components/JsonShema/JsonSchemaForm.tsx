@@ -10,7 +10,7 @@ interface JsonSchemaFormProps<FormValues = Record<string, any>, InitialFormValue
 
 export const JsonSchemaForm: React.FC<JsonSchemaFormProps> = (props) => {
 	let { schema, ...formProps } = props;
-	const model = JSONSchemaModelMaker.makeModel(schema);
+	let model = JSONSchemaModelMaker.makeModel(schema);
 	model.validate = schemaValidation.bind(schema);
 	Object.assign(model, formProps);
 	return <FormModelLayout model={model} />;

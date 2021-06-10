@@ -1,43 +1,32 @@
 {
-	"title": "A registration form",
-	"description": "описание",
+	"title": "Charts",
 	"type": "object",
 	"properties": {
-		"firstName": {
-			"type": "string",
-			"title": "First name",
-			"minLength": 3,
-			"maxLength": 25
-		},
-		"lastName": {
-			"type": "string",
-			"title": "Last name ",
-			"minLength": 3,
-			"maxLength": 25
-		},
-		"Age": {
-			"type": "number",
-			"title": "Age"
-		},
-		"phoneNumber": {
-			"type": "string",
-			"options": {
-				"placeholder": "enter u phone number"
-			},
-			"title": "phoneNumber",
-			"minLength": 11,
-			"maxLength": 11
-		},
-		"Group": {
-			"type": "object",
-			"title": "GroupName",
-			"properties": {
-				"gender": {
+		"ChartControlOptions": {
+			"anyOf": [
+				{
 					"type": "string",
-					"title": "Gender",
-					"enum": ["", "male", "female"]
+					"title": "Двумерный график",
+					"properties": {
+						"type": {
+							"title": "Тип исчисления графика",
+							"type": "string",
+							"enum": ["2d"]
+						}
+					}
+				},
+				{
+					"type": "object",
+					"title": "Полярный график",
+					"properties": {
+						"type": {
+							"title": "Тип исчисления графика",
+							"type": "string",
+							"enum": ["polar"]
+						}
+					}
 				}
-			}
+			]
 		}
 	}
 }

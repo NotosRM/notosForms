@@ -3,6 +3,7 @@ import MonacoEditor from "react-monaco-editor";
 import { JSONSchema4 } from "json-schema";
 import { JsonSchemaForm } from "../components/JsonShema/JsonSchemaForm";
 import style from "./Playground.css";
+import { ErrorBoundary } from "../components/ErrorBoundary/ErrorBoundary";
 
 const regForm = require("../examples/registrationForm.json");
 const charts = require("../examples/chartsJSONSchema.json");
@@ -131,25 +132,3 @@ export const Playground: React.FC<PlaygroundProps> = (props) => {
 		</div>
 	);
 };
-
-//TODO: в отдельный файл
-class ErrorBoundary extends React.Component<any, any> {
-	constructor(props: any) {
-		super(props);
-		this.state = { hasError: false };
-	}
-
-	static getDerivedStateFromError() {
-		// Обновить состояние с тем, чтобы следующий рендер показал запасной UI.
-		return { hasError: true };
-	}
-
-	render() {
-		if (this.state.hasError) {
-			// Можно отрендерить запасной UI произвольного вида
-			return <h1>Что-то пошло не так.</h1>;
-		}
-
-		return this.props.children;
-	}
-}
