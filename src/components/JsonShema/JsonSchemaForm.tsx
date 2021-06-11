@@ -1,7 +1,7 @@
 import { JSONSchema4, validate, ValidationError } from "json-schema";
 import React from "react";
 import { FormLayoutProps } from "../Form/FormLayout/FormLayout";
-import { JSONSchemaModelMaker } from "./ModelMaker";
+import { JSONSchemaModelMaker } from "./JSONSchemaModelMaker";
 import { FormModelLayout } from "../FormModel/FormModelLayout";
 interface JsonSchemaFormProps<FormValues = Record<string, any>, InitialFormValues = Partial<FormValues>>
 	extends FormLayoutProps<FormValues, InitialFormValues> {

@@ -25,12 +25,14 @@ export const SimpleFormExample = () => {
 					code="themeChanger"
 					label="Тема"
 					control="select"
-					elements={["", "dark", "pink", "coffee", "dark-blue", "light-blue", "modern-blue"]}
+					elements={["", "pink", "coffee", "dark-blue", "light-blue", "modern-blue"]}
 				></FieldLayout>
 				<FormSpy
 					subscription={{ values: true }}
 					onChange={(props) => {
 						document.documentElement.classList.value = props.values.themeChanger;
+						if (props.values.darkMode != null)
+							document.documentElement.classList.toggle("dark", props.values.darkMode);
 					}}
 				/>
 				<FieldLayout code="firstName" label="First name" description="Your full name" labelPosition="right" />
@@ -52,13 +54,6 @@ export const SimpleFormExample = () => {
 				</FieldGroup>
 				<FieldLayout code="confirm" label="Subscribe to newsletter" control="radio" />
 				<FieldLayout code="darkMode" label="Dark Mode" control="checkbox" />
-				<FormSpy
-					subscription={{ values: true }}
-					onChange={(props) => {
-						if (props.values.darkMode != null)
-							document.documentElement.classList.toggle("dark", props.values.darkMode);
-					}}
-				/>
 			</FormLayout>
 		</div>
 	);
