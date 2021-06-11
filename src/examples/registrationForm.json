@@ -21,7 +21,6 @@
 		},
 		"phoneNumber": {
 			"type": "string",
-			"pattern": "[0-9]{11}",
 			"options": {
 				"placeholder": "enter u phone number"
 			},

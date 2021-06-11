@@ -5,7 +5,7 @@
 		"ChartControlOptions": {
 			"anyOf": [
 				{
-					"type": "string",
+					"type": "object",
 					"title": "Двумерный график",
 					"properties": {
 						"type": {

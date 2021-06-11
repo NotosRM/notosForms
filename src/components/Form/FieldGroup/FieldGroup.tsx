@@ -1,7 +1,7 @@
 import * as React from "react";
 import styles from "./FieldGroup.css";
 
-type GroupLayoutProps = {
+export type GroupLayoutProps = {
 	code?: string;
 	label?: string;
 	description?: string;
