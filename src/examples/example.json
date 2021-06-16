@@ -5,8 +5,8 @@
 		"ChartControlOptions": {
 			"anyOf": [
 				{
-					"type": "string",
-					"title": "Двумерный график",
+					"type": "object",
+					"title": "Первый элемент",
 					"properties": {
 						"type": {
 							"title": "Тип исчисления графика",
@@ -17,7 +17,7 @@
 				},
 				{
 					"type": "object",
-					"title": "Полярный график",
+					"title": "Второй элемент",
 					"properties": {
 						"type": {
 							"title": "Тип исчисления графика",

@@ -16,6 +16,7 @@
 	"definitions": {
 		"TwoDimensionalOptions": {
 			"type": "object",
+			"title": "Двумерный график",
 			"properties": {
 				"type": {
 					"title": "Тип исчисления графика",
@@ -177,6 +178,7 @@
 
 		"PolarOptions": {
 			"type": "object",
+			"title": "Донат график",
 			"properties": {
 				"type": {
 					"title": "Тип исчисления графика",

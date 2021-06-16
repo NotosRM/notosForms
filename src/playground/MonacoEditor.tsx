@@ -1,35 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MonacoEditor from "react-monaco-editor";
-import { monaco } from "react-monaco-editor";
 import * as monacoEditor from "monaco-editor/esm/vs/editor/editor.api";
 interface EditorProps {
-	schema: object;
-	onChange: (isEditorValid: boolean, SchemaObject: object) => void;
+	code: string;
+	onChange: (value: string, isValid: boolean) => void;
 }
 export const Editor: React.FC<EditorProps> = (props) => {
-	let [isCodeValid, setValid] = useState(false);
-	let [code, setCode] = useState(props.schema);
-
+	let p = props;
 	const editorWillMount = (monaco: typeof monacoEditor) => {
 		monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
 			validate: true
 		});
 	};
-
-	const onChange = (newValue: string, event: any) => {
-		let ev = event;
-		let monacoCode;
+	const onChange = (newValue: string, event: monacoEditor.editor.IModelContentChangedEvent) => {
+		let e = event;
 		try {
-			monacoCode = JSON.parse(newValue);
-			if (monacoCode) {
-				setValid(true);
-				setCode(monacoCode);
-				props.onChange(isCodeValid, code);
-			}
-		} catch (error) {}
+			let n = JSON.parse(newValue);
+			props.onChange(newValue, true);
+		} catch (error) {
+			props.onChange(newValue, false);
+		}
 	};
-	const editorDidMount = (editor: any, monaco: any) => {
-		let e = editor;
+	const editorDidMount = (editor: monacoEditor.editor.IStandaloneCodeEditor, monaco: typeof monacoEditor) => {
 		let m = monaco;
 		editor.focus();
 	};
@@ -44,7 +36,7 @@ export const Editor: React.FC<EditorProps> = (props) => {
 			}}
 			language="json"
 			theme="vs-light"
-			value={JSON.stringify(code, null, 4)}
+			value={props.code}
 			editorWillMount={editorWillMount}
 			onChange={onChange}
 			editorDidMount={editorDidMount}
