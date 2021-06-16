@@ -21,6 +21,9 @@ export const Playground: React.FC<PlaygroundProps> = (props) => {
 	const handleEditorCodeChange = (value: string, isValid: boolean) => {
 		setEditorState({ code: value, isValid: isValid });
 	};
+	useEffect(() => {
+		setEditorState({ code: JSON.stringify(formSchema, null, 4), isValid: false });
+	}, [formSchema]);
 	return (
 		<div className={style.playground}>
 			<div className={style.header}>
