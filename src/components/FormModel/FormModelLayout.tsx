@@ -4,8 +4,6 @@ import { FieldGroup } from "../Form/FieldGroup/FieldGroup";
 import { FieldLayout } from "../Form/FieldLayout/FieldLayout";
 import { FormLayout } from "../Form/FormLayout/FormLayout";
 import styles from "./JsonSchemaForm.css";
-
-import arrayMutators from "final-form-arrays";
 import { ComponentSwitcher } from "./ComponentSwitcher/ComponentSwitcher";
 
 interface FormModelLayoutProps {
@@ -14,16 +12,7 @@ interface FormModelLayoutProps {
 
 export const FormModelLayout: React.FC<FormModelLayoutProps> = (props) => {
 	let { components, ...rest } = props.model;
-	return (
-		<FormLayout
-			{...rest}
-			mutators={{
-				...arrayMutators
-			}}
-		>
-			{components ? <Components components={components} /> : null}
-		</FormLayout>
-	);
+	return <FormLayout {...rest}>{components ? <Components components={components} /> : null}</FormLayout>;
 };
 
 export const Components = (props: { components: FormComponent[] }) => {

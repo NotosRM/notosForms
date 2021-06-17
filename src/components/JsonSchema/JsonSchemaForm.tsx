@@ -16,7 +16,7 @@ export const JsonSchemaForm: React.FC<JsonSchemaFormProps> = (props) => {
 	return <FormModelLayout model={model} />;
 };
 
-const schemaValidation = function (this: JSONSchema4, values: any) {
+export const schemaValidation = function (this: JSONSchema4, values: any) {
 	let errors: any = {};
 	let v = validate(values, this);
 
@@ -39,3 +39,4 @@ const schemaValidation = function (this: JSONSchema4, values: any) {
 
 	return errors;
 };
+export default JsonSchemaForm;

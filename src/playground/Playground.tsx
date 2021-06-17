@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import MonacoEditor from "react-monaco-editor";
 import { JSONSchema4 } from "json-schema";
-import { JsonSchemaForm } from "../components/JsonShema/JsonSchemaForm";
+import { JsonSchemaForm } from "../components/JsonSchema/JsonSchemaForm";
 import style from "./Playground.css";
 import { ErrorBoundary } from "../components/ErrorBoundary/ErrorBoundary";
 import { Editor } from "./MonacoEditor";
