@@ -152,6 +152,7 @@ export class JSONSchemaModelMaker {
 			let code = makeCode(this.currentPath);
 			let selectorElements: string[] = [];
 			let components = schema?.oneOf.map((component: JSONSchema4, index: number) => {
+				this.currentPath = compositionsRoot + `/oneOf`;
 				let { title, ...rest } = pullRef(component, this.schema);
 				selectorElements.push(title || `Option ${index}`);
 				return this.prepareComponent(rest);
@@ -164,6 +165,7 @@ export class JSONSchemaModelMaker {
 			let code = makeCode(this.currentPath);
 			let selectorElements: string[] = [];
 			let components = schema?.anyOf.map((component: JSONSchema4, index: number) => {
+				this.currentPath = compositionsRoot + `/anyOf`;
 				let { title, ...rest } = pullRef(component, this.schema);
 				selectorElements.push(title || `Option ${index}`);
 				return this.prepareComponent(rest);
