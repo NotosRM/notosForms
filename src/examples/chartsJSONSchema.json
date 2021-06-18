@@ -120,6 +120,7 @@
 		},
 		"BarChart": {
 			"type": "object",
+			"title": "Столбчатые диаграммы",
 			"properties": {
 				"type": {
 					"title": "Тип 2D-графика",
@@ -146,6 +147,7 @@
 		},
 		"LineAreaChart": {
 			"type": "object",
+			"title": "Линейные диаграммы",
 			"properties": {
 				"type": {
 					"title": "Тип 2D-графика",
