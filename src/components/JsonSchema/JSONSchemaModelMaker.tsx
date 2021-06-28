@@ -55,7 +55,10 @@ export class JSONSchemaModelMaker {
 	};
 	getFormProps = (schema: JSONSchema4) => {
 		let { title, description, ...rest } = schema;
-		return { title, description };
+		const component: any = {};
+		if (title) component.title = title;
+		if (description) component.description = description;
+		return component;
 	};
 	prepareComponents = (properties: { [k: string]: JSONSchema4 }) => {
 		let propertiesPath = this.currentPath + `/properties`;
@@ -68,13 +71,21 @@ export class JSONSchemaModelMaker {
 		});
 		return components;
 	};
-
-	prepareComponent = (props: JSONSchema4) => {
+	prepareComponent = (componentSchema: JSONSchema4) => {
 		let currentCode = makeCode(this.currentPath);
-		props = pullRef(props, this.schema);
+		componentSchema = pullRef(componentSchema, this.schema);
+
+		const { title: label, description, controlOptions, ...props } = componentSchema;
+		const component: any = {
+			key: currentCode,
+			code: currentCode,
+			...controlOptions
+		};
+		if (label) component.label = label;
+		if (description) component.description = description;
 
 		if (props.type == "object" || props.properties) {
-			let { type, title: label, description, properties, controlOptions, ...rest } = props;
+			let { type, properties, ...rest } = props;
 			let components: FormComponent[] = [];
 			if (properties) components = this.prepareComponents(properties);
 			if (props.anyOf || props.oneOf) {
@@ -83,67 +94,48 @@ export class JSONSchemaModelMaker {
 
 			return {
 				type: FormComponentType.fieldGroup,
-				key: currentCode,
-				code: currentCode,
-				label,
-				description,
 				components,
-				...controlOptions
+				...component
 			};
 		}
 		if (props.anyOf || props.oneOf) {
 			return this.prepareCompositionsComponents(props);
 		}
 		if (props.enum) {
-			let { type, title: label, description, enum: elements, controlOptions, ...rest } = props;
+			let { type, enum: elements, ...rest } = props;
 			return {
 				type: FormComponentType.field,
-				key: currentCode,
-				code: currentCode,
-				label,
-				description,
 				elements: elements.map((el: any) => (el != null ? el.toString() : "")),
 				control: "select",
-				...controlOptions
+				...component
 			};
 		}
 		if (props.type == "string") {
-			let { type, title: label, description, controlOptions, ...rest } = props;
+			let { type, ...rest } = props;
 			return {
 				type: FormComponentType.field,
-				key: currentCode,
-				code: currentCode,
-				label,
-				description,
-				...controlOptions
+				...component
 			};
 		}
 		if (props.type == "number" || props.type == "integer") {
-			let { type, title: label, description, enum: elements, controlOptions, ...rest } = props;
+			let { type, enum: elements, ...rest } = props;
 			return {
 				type: FormComponentType.field,
-				key: currentCode,
-				code: currentCode,
-				label,
-				description,
 				fieldProps: { name: currentCode, type: "number" },
-				...controlOptions
+				...component
 			};
 		}
 		if (props.type == "boolean") {
-			let { type, title: label, description, enum: elements, controlOptions, ...rest } = props;
+			let { type, enum: elements, ...rest } = props;
 			return {
 				type: FormComponentType.field,
-				key: currentCode,
-				code: currentCode,
-				label,
-				description,
 				control: "checkbox",
-				...controlOptions
+				...component
 			};
 		}
 		return {};
 	};
+
 	prepareCompositionsComponents: (schema: JSONSchema4) => CompositionComponent[] = (schema) => {
 		const compositionsRoot = this.currentPath;
 		let compositions: CompositionComponent[] = [];
