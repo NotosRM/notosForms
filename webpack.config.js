@@ -1,18 +1,22 @@
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
-const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const path = require("path");
-const APP_PATH = path.resolve(__dirname, "src");
-const MONACO_DIR = path.resolve(__dirname, "node_modules/monaco-editor");
 // const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 const themes = ["dark", "pink", "coffee", "dark-blue", "light-blue", "modern-blue"];
 module.exports = {
-	entry: APP_PATH,
+	entry: path.resolve(__dirname, "src/main.ts"),
 	output: {
-		filename: "[name].[contenthash].js",
-		path: path.resolve(__dirname, "dist")
+		filename: "[name].js",
+		path: path.resolve(__dirname, "dist"),
+		libraryTarget: "umd"
+	},
+	externals: {
+		react: {
+			commonjs: "react",
+			commonjs2: "react",
+			amd: "react",
+			root: "react"
+		}
 	},
 	resolve: {
 		extensions: [".ts", ".tsx", ".js", ".jsx", ".json", ".css"]
@@ -26,7 +30,6 @@ module.exports = {
 			},
 			{
 				test: /\.css$/i,
-				include: APP_PATH,
 				use: [
 					"style-loader",
 					{
@@ -42,15 +45,6 @@ module.exports = {
 					},
 					"postcss-loader"
 				]
-			},
-			{
-				test: /\.css$/,
-				include: MONACO_DIR,
-				use: ["style-loader", "css-loader"]
-			},
-			{
-				test: /\.ttf$/,
-				use: ["file-loader"]
 			}
 		]
 	},
@@ -60,15 +54,7 @@ module.exports = {
 		port: 9000
 	},
 	plugins: [
-		new HtmlWebpackPlugin({
-			inject: true,
-			template: path.join(APP_PATH, "index.html")
-		}),
-		new ForkTsCheckerWebpackPlugin(),
-		new MonacoWebpackPlugin({
-			languages: ["json"]
-		}),
-		new CleanWebpackPlugin()
+		new ForkTsCheckerWebpackPlugin()
 		// new BundleAnalyzerPlugin()
 	]
 };
