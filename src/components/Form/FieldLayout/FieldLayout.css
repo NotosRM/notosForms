@@ -16,8 +16,14 @@ wrapper	{
 }
 */
 .wrapper {
-	@apply px-4 mb-3;
-	@apply text-xs;
+	@apply text-base;
+	@apply px-horizontal;
+}
+.field {
+	@apply mb-out-space;
+}
+.wrapper span {
+	line-height: 1em;
 }
 .lblPosRight {
 	@apply grid gap-x-4;
@@ -39,9 +45,10 @@ wrapper	{
 }
 
 .label {
-	@apply mb-2;
+	@apply mb-in-space;
 	@apply inline-block;
 	@apply text-primary;
+	@apply whitespace-nowrap;
 }
 .checkLabel {
 	@apply inline-block;
@@ -52,14 +59,15 @@ wrapper	{
 .container {
 }
 .control {
+	@apply inline-block;
 	@apply border-solid border-1 border-gray-300;
-	@apply py-1 px-3;
+	@apply px-pad-x py-pad-y;
 	transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 	@apply outline-0;
 	@apply box-border;
 	@apply w-full;
-	@apply inline-block;
 	@apply text-base-primary;
+	@apply text-base;
 }
 .control:hover,
 .control:focus {
@@ -68,13 +76,13 @@ wrapper	{
 	@apply outline-0;
 }
 .control.invalid {
-	@apply border-solid border-red-500;
+	@apply border-solid border-danger;
 }
 .control.invalid > .checkInput {
-	@apply border-solid border-red-500;
+	@apply border-solid border-danger;
 }
 .control.invalid > .checkLabel {
-	@apply text-red-700;
+	@apply text-fatal;
 }
 
 .input {
@@ -88,14 +96,16 @@ wrapper	{
 	background-repeat: no-repeat;
 	background-position: right 0.5rem center;
 	background-size: 16px 12px;
-	@apply pr-8;
+	padding-right: 2em;
 	@apply appearance-none;
 }
 .checkbox,
 .radio {
 	@apply border-0;
 	@apply shadow-none;
-	@apply p-0 pl-2 py-1;
+	@apply p-0;
+	@apply text-base;
+	@apply flex;
 }
 .checkbox:hover,
 .checkbox:focus,
@@ -106,29 +116,29 @@ wrapper	{
 }
 .checkInput {
 	@apply border-1 border-solid border-gray-300;
-	@apply w-3 h-3;
-	@apply m-0 mr-1;
+	width: 12.8px;
+	height: 12.8px;
+	margin: 0px;
 	@apply align-top;
 	@apply appearance-none;
 	@apply bg-no-repeat bg-white bg-center bg-contain;
-	margin-left: -8px;
-	margin-top: 2px;
+	margin: 2px 4px 0px 0px !important;
 }
 .checkInput:hover,
 .checkInput:focus {
 	@apply border-solid border-blue-400 border-1;
 	@apply shadow-mdt-blue;
-	@apply outline-0;
+	@apply outline-0 !important;
 }
 .checkInput:checked {
 	@apply bg-blue-500;
 	@apply border-blue-500;
 }
 .checkInput:checked[type="checkbox"] {
-	background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-1 -1 21 22'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e");
+	background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='2 2 15 15'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e");
 }
 .checkInput:checked[type="radio"] {
-	background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -3 8 6'%3e%3ccircle r='2' fill='%23fff'/%3e%3c/svg%3e");
+	background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4.2 -3.1 8 6'%3e%3ccircle r='2' fill='%23fff'/%3e%3c/svg%3e");
 }
 .checkInput[type="radio"] {
 	border-radius: 50%;
@@ -144,17 +154,14 @@ wrapper	{
 }
 
 .description {
-	@apply mt-1;
+	@apply mt-in-space;
 	@apply text-gray-500 dark:text-gray-400;
 }
 .error {
-	@apply text-danger dark:text-red-500;
+	@apply text-danger dark:bg-danger;
 	@apply w-full;
-	@apply mt-1;
-}
-.errorDetail {
-	@apply my-0 mx-0 pl-10;
+	@apply mt-in-space;
 }
 .requiredMark {
-	@apply text-danger font-bold dark:text-red-400;
+	@apply text-danger font-bold dark:text-danger;
 }

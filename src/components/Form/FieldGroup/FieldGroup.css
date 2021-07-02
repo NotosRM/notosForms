@@ -1,19 +1,19 @@
 .wrap {
-	@apply mb-3;
 	break-inside: avoid;
 	@apply border-gray-900;
-	min-height: 28px;
+	/* min-height: 28px; TODO */
+	@apply text-base;
 }
 
 .header {
-	@apply px-4 mb-3;
-	@apply text-xl;
+	@apply px-horizontal mb-out-space;
+	@apply text-md font-medium;
 }
 .label {
-	display: block;
+	@apply block;
 }
 .description {
-	display: block;
+	@apply block;
 	@apply text-base;
 }
 .labelCollapser {
@@ -29,7 +29,6 @@
 	@apply appearance-none;
 	@apply cursor-pointer;
 	font-family: "Font Awesome 5 Pro", "Font Awesome 5 Brands", "Font Awesome 5 Duotone";
-	min-width: 16px;
 }
 .angleDown:before {
 	content: "\f107";

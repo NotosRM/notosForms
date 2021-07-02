@@ -26,33 +26,35 @@ export const FieldLayout: React.FC<FieldLayoutProps> = (props) => {
 					: (props.fieldProps && props.fieldProps.type) || ""
 			}
 			render={({ input, meta }) => (
-				<div className={styles.wrapper + classNameByPosition}>
-					{controlType == "checkbox" || controlType == "radio" ? null : props.label ? (
-						<label className={styles.label} htmlFor={props.code}>
-							<span>{props.label}</span>
-							{props.required == true && <sup className={styles.requiredMark}>*</sup>}
-						</label>
-					) : null}
-					<div className={styles.component}>
-						<div className={styles.container}>
-							<Control
-								className={
-									styles.control +
-									((meta.touched && meta.error && " " + styles.invalid) || "") +
-									" " +
-									styles[controlType]
-								}
-								input={input}
-								{...rest}
-								required={props.required}
-							/>
-						</div>
+				<div className={styles.wrapper}>
+					<div className={styles.field + classNameByPosition}>
+						{controlType == "checkbox" || controlType == "radio" ? null : props.label ? (
+							<label className={styles.label} htmlFor={props.code}>
+								<span>{props.label}</span>
+								{props.required == true && <sup className={styles.requiredMark}>*</sup>}
+							</label>
+						) : null}
+						<div className={styles.component}>
+							<div className={styles.container}>
+								<Control
+									className={
+										styles.control +
+										((meta.touched && meta.error && " " + styles.invalid) || "") +
+										" " +
+										styles[controlType]
+									}
+									input={input}
+									{...rest}
+									required={props.required}
+								/>
+							</div>
 
-						{meta.touched && meta.error ? (
-							<div className={styles.error}>{props.error || meta.error}</div>
-						) : (
-							props.description && <div className={styles.description}>{props.description}</div>
-						)}
+							{meta.touched && meta.error ? (
+								<div className={styles.error}>{props.error || meta.error}</div>
+							) : (
+								props.description && <div className={styles.description}>{props.description}</div>
+							)}
+						</div>
 					</div>
 				</div>
 			)}
