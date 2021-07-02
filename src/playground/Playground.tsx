@@ -40,7 +40,7 @@ export const Playground: React.FC<PlaygroundProps> = (props) => {
 				<div className={style.codeEditor} style={{ height: `${window.innerHeight * 0.8}px` }}>
 					<Editor code={editor.code} onChange={handleEditorCodeChange}></Editor>
 				</div>
-				<div className={style.formWrapper} style={{ height: `${window.innerHeight * 0.8 - 40}px` }}>
+				<div className={style.formWrapper} style={{ height: `${window.innerHeight * 0.8}px` }}>
 					<ErrorBoundary>
 						<div className={style.formContainer}>
 							{
